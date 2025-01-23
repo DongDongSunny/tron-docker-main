@@ -121,9 +121,9 @@ git clone https://github.com/tronprotocol/tron-docker.git
 # enter the directory
 cd tron-docker/gradlew
 # compile the database fork tool
-./gradlew build 
+./gradlew :tools:dbfork:build 
 # execute full command
-java -jar build/libs/dbfork.jar -c fork.conf -d output-directory
+cd .. && java -jar tools/dbfork/build/libs/dbfork.jar -c fork.conf -d output-directory
 ```
 
 ### Launch the FullNode
