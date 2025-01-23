@@ -110,7 +110,7 @@ task testDocker {
 
     doLast {
         exec {
-            def image = project.hasProperty('release.releaseVersion') ? "${dockerImageName}:" + project.property('release.releaseVersion') : "${dockerImageName}:${project.version}"
+            def image = "${dockerImageName}:${dockerBuildVersion}"
             workingDir "${rootDir}/docker"
             executable shell
             args "-c", "./test.sh ${image}"
