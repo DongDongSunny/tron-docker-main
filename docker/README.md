@@ -5,50 +5,51 @@ If you encounter any problems during the build or testing process, please refer 
 
 ## Prerequisites
 
-Follow the [getting-started](https://github.com/tronprotocol/tron-docker/blob/main/README.md#getting-started) guidance to download docker and tron-docker repository. Then enter the main directory.
+Follow the [getting-started](https://github.com/tronprotocol/tron-docker/blob/main/README.md#getting-started) guide to download Docker and the tron-docker repository. Then, navigate to the tron-docker/gradlew directory.
 
 Container testing uses the [Goss](https://github.com/goss-org/goss/blob/v0.4.9/README.md) tool, a YAML-based testing framework for validating service states. While no additional installation is required, it is beneficial to learn the basic usage of [Goss with container](https://goss.readthedocs.io/en/stable/container_image/) to help you better understand the following testing scripts.
 
 ## Build image
 
-In main directory of tron-docker, below command will trigger java-tron docker image build process. Now we only support platform:`linux/amd64`.
+Navigate to the gradlew directory. The command below will trigger the build process for java-tron image. Now we only support platform:`linux/amd64`.
 ```
+cd gradlew
 ./gradlew --no-daemon sourceDocker
 ```
 
-The compilation time may take up to half an hour, depending on your network conditions. Then after it success finished, you could see the generated image.
+The compilation process may take above 30 minutes, depending on your network conditions. Once it successfully completes, you will be able to see the generated image.
 ```
 $ docker images
 REPOSITORY               TAG        IMAGE ID       CREATED          SIZE
-tronprotocol/java-tron   V4.7       76702facd55e   23 seconds ago   549MB
+tronprotocol/java-tron   1.0.0      76702facd55e   23 seconds ago   549MB
 ```
 
 ### What ./gradlew sourceDocker do?
 
-It will trigger the execution of task sourceDocker in build.gradle. Check the logic, task sourceDocker basically copy the Dockerfile and shell script to a build directory, then run the docker build. From the logic, you could run ./gradlew sourceDocker with customised dockerOrgName, dockerArtifactName, and release.releaseVersion.
+It will trigger the execution of `task sourceDocker` in [build.gradle](build.gradle). Reviewing the logic, `task sourceDocker` essentially copies the Dockerfile and shell script to a build directory, then runs the docker build. From the logic, you can run `./gradlew sourceDocker` with customised `dockerOrgName`, `dockerArtifactName`, and `release.releaseVersion`.
 
 For example:
-
-./gradlew --no-daemon sourceDocker -PdockerOrgName=yourOrgName -PdockerArtifactName=test -Prelease.releaseVersion=V1.0
-
+```
+./gradlew --no-daemon sourceDocker -PdockerOrgName=yourOrgName -PdockerArtifactName=test -Prelease.releaseVersion=V1.1.0
+```
 ## Test image
 
-Test the java-tron image use below command:
-
+Test the java-tron image use the command below.
+```
 ./gradlew --no-daemon testDocker
+```
+This will trigger the execution of `task testDocker` in [build.gradle](build.gradle). According to this logic, it will run the [test.sh](test.sh) script with the parameter of the Docker image name.
 
-This will trigger the execution of the testDocker task in build.gradle. Within this logic, it will run the test.sh script with the parameter of the Docker image name aligned with sourceDocker.
+The test.sh script sets up the Goss environment and then invokes the [dgoss shell](tests/dgoss), which will copy the test cases from [tests/01](tests/01) folder to the Docker container and execute the test validations.
 
-The test.sh script sets up the Goss environment and then invokes the Goss shell located in ./tests/goss, which will copy the test cases from ./tests to the Docker container and execute the test validations.
+Currently, there are three test files: 
 
-Currently, there are three test files: 
+- The `goss.yaml` and `goss_wait.yaml` files are used to perform port checks.
 
-goss.yaml and goss_wait.yaml are used to do the ports check.
+- The `testSync.sh` script is used to verify whether block synchronization is functioning normally. It will call `http://127.0.0.1:8090/wallet/getnodeinfo` 100 times. As long as `beginSyncNum` changes from the genesis block 0 to a larger number, the test will pass.
 
-testSync.sh is used to verify whether block synchronization is functioning normally. It will check http://127.0.0.1:8090/wallet/getnodeinfo 100 times, as long as beginSyncNum changed from genesis block 0 to a larger number, the test will be passed.
-
-Success execution will output content below:
-
+Successful execution will output the following content:
+```
 $ ./gradlew --no-daemon testDocker
 
 To honour the JVM settings for this build a single-use Daemon process will be forked. See https://docs.gradle.org/7.6.4/userguide/gradle_daemon.html#sec:disabling_the_daemon.
@@ -117,11 +118,11 @@ INFO: Running Tests
 
 BUILD SUCCESSFUL in 47s
 2 actionable tasks: 2 executed
-
+```
 
 ## Troubleshooting
 
-If you encounter below errors when building the image:
+If you encounter the following errors while building the image:
 
 ```
 800.3 Cloning into 'java-tron'...
@@ -132,8 +133,7 @@ If you encounter below errors when building the image:
 1187.3 fatal: fetch-pack: invalid index-pack output
 ```
 
-Adjust your git http post buffer to a large size, use below command.
-
+Adjust your Git HTTP post buffer to a larger size by using the command below:
 ```
 git config --global http.postBuffer 5242880000  # Sets it to 5GB
 ```
