@@ -23,7 +23,7 @@ DOCKER_IMAGE=$1
 # shellcheck disable=SC2034
 DOCKER_FILE="${2:-$PWD/Dockerfile}"
 
-i=0
+i=0 # This initializes a counter variable i that will be used to track the number of failed tests.
 
 # Test for normal startup with ports opened
 # we test that things listen on the right interface/port, not what interface the advertise
