@@ -1,19 +1,20 @@
 # Gradle Docker 
-This document provides guidance on using Gradle to automate the build and test processes for java-tron. You can customize the corresponding scripts to perform specific actions or integrate them with your existing Continuous Integration (CI) setup.
+This document provides guidance on using Gradle to automate the build and test processes for java-tron docker image. You can customize the corresponding scripts to perform specific actions or integrate them with your existing Continuous Integration (CI) setup.
 
 If you encounter any problems during the build or testing process, please refer to the troubleshooting section.
 
 ## Prerequisites
 
-Follow the [getting-started](https://github.com/tronprotocol/tron-docker/blob/main/README.md#getting-started) guide to download Docker and the tron-docker repository. Then, navigate to the tron-docker/gradlew directory.
-
+Follow the [getting-started](https://github.com/tronprotocol/tron-docker/blob/main/README.md#getting-started) guide to download Docker and the tron-docker repository. Then, navigate to the tron-docker/tools directory.
+```
+cd /java-tron/tools
+```
 Container testing uses the [Goss](https://github.com/goss-org/goss/blob/v0.4.9/README.md) tool, a YAML-based testing framework for validating service states. While no additional installation is required, it is beneficial to learn the basic usage of [Goss with container](https://goss.readthedocs.io/en/stable/container_image/) to help you better understand the following testing scripts.
 
 ## Build image
 
-Navigate to the gradlew directory. The command below will trigger the build process for java-tron image. Now we only support platform:`linux/amd64`.
+The command below will trigger the build process for java-tron image. Now we only support platform:`linux/amd64`.
 ```
-cd gradlew
 ./gradlew --no-daemon sourceDocker
 ```
 

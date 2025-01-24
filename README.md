@@ -42,7 +42,7 @@ We also provide tools to facilitate the CI and testing process:
    - To start a single FullNode, use the folder [single_node](./single_node).
    - To set up a private TRON network, use the folder [private_net](./private_net).
    - To monitor the TRON node, use the folder [metric_monitor](./metric_monitor).
-   - For use gradle on docker, check [guidance](./docker/README.md). 
+   - For use gradle on docker, check [gradle docker](./docker/README.md). 
    - To do shadow fork testing, check [db fork guidance](./tools/README.md).
 
 ## Troubleshooting
