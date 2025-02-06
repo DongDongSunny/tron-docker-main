@@ -19,7 +19,6 @@ Download the `tron-docker` repository, enter the `metric` directory, and start t
 ```sh
 docker-compose up -d
 ```
-Then check the Docker resource settings to ensure it has at least 16GB of memory.
 It will start a TRON FullNode that connects to the Mainnet, along with Prometheus and Grafana services. Note that in [main_net_config.conf](../conf/main_net_config.conf), it contains the configuration below to enable metrics.
 ```
 metrics{
