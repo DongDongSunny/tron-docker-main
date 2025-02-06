@@ -40,13 +40,13 @@ We also provide tools to facilitate the CI and testing process:
    Navigate to the relevant directory and follow the instructions in the respective README to start the services.
 
    **For TRON Network Deployment:**
-   - 🖥️ **Single FullNode**: Use the [single_node](./single_node) folder.
-   - 🔗 **Private TRON Network**: Use the [private_net](./private_net) folder.
-   - 📊 **Node Monitoring**: Use the [metric_monitor](./metric_monitor) folder.
+   - **Single FullNode**: Use the [single_node](./single_node) folder.
+   - **Private TRON Network**: Use the [private_net](./private_net) folder.
+   - **Node Monitoring**: Use the [metric_monitor](./metric_monitor) folder.
 
    **For Tools:**
-   - 🛠️ **Gradle Docker**: Automate Docker image builds and testing. Check the [gradle docker](./tools/docker/README.md) documentation.
-   - 🌐 **DB Fork**: Perform shadow fork testing. Follow the [db fork guidance](./tools/dbfork/README.md).
+   - **Gradle Docker**: Automate Docker image builds and testing. Check the [gradle docker](./tools/docker/README.md) documentation.
+   - **DB Fork**: Perform shadow fork testing. Follow the [dbfork guidance](./tools/dbfork/README.md).
 
 ## Troubleshooting
 If you encounter any difficulties, please refer to the [Issue Work Flow](https://tronprotocol.github.io/documentation-en/developers/issue-workflow/#issue-work-flow), then raise an issue on [GitHub](https://github.com/tronprotocol/tron-docker/issues). For general questions, please use [Discord](https://discord.gg/cGKSsRVCGm) or [Telegram](https://t.me/TronOfficialDevelopersGroupEn).
