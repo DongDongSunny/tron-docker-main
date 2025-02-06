@@ -34,7 +34,7 @@ metrics{
 The Prometheus service will use the configuration file [prometheus.yml](metric_conf/prometheus.yml). It uses the configuration below to add targets for monitoring.
 ```
 - targets:
-    - tron_node1:9527 # use container name
+    - tron-node1:9527 # use container name
   labels:
     group: group-tron
     instance: fullnode-01
@@ -45,7 +45,7 @@ You can view the running status of the Prometheus service at `http://localhost:9
 
 If you want to monitor more nodes, simply add more targets following the same format. Click on "Status" -> "Targets" to view the status of each monitored java-tron node.
 ![image](../images/prometheus_targets.png)
-**Notice**: If you want to check metrics, please use `http://localhost:9527/metrics` on host machine instead of `http://tron_node1:9527/metrics`, as the latter is used for container access inside Docker.
+**Notice**: If you want to check metrics, please use `http://localhost:9527/metrics` on host machine instead of `http://tron-node1:9527/metrics`, as the latter is used for container access inside Docker.
 
 ### Grafana service
 After startup, you can log in to the Grafana web UI through [http://localhost:3000/](http://localhost:3000/). The initial username and password are both `admin`. After logging in, change the password according to the prompts, and then you can enter the main interface.

@@ -18,7 +18,7 @@ Please download and install the latest version of Docker from the official Docke
 * Docker Installation for [Windows](https://docs.docker.com/docker-for-windows/install/)
 * Docker Installation for [Linux](https://docs.docker.com/desktop/setup/install/linux/)
 
-Then check the Docker resource settings to ensure it has at least 12GB of memory per TRON node.
+Then check the Docker resource settings to ensure it has at least 9GB of memory per TRON node.
 
 ## Quick-Start using Docker
 Download the folder [private_net](../private_net) from GitHub. Enter the directory and run the docker-composer.
@@ -30,7 +30,7 @@ A TRON private network will be started with one [SR](https://tronprotocol.github
 
 Check the witness logs by running the command below:
 ```
-docker exec -it tron_witness1 tail -f ./logs/tron.log
+docker exec tron-witness1 tail -f ./logs/tron.log
 ```
 Normally, it should show the witness initializing the database and network, then starting to produce blocks every 3 seconds.
 ```
@@ -47,7 +47,7 @@ Peer stats: channels 1, activePeers 1, active 0, passive 1
 
 Check the other fullnode logs by running the command below:
 ```
-docker exec -it tron_node1 tail -f ./logs/tron.log
+docker exec tron-node1 tail -f ./logs/tron.log
 ```
 After initialization, it should show messages about syncing blocks, just following the SR.
 
@@ -55,7 +55,7 @@ After initialization, it should show messages about syncing blocks, just followi
 
 Check the docker-compose.yml, the two container services use the same TRON image with different configurations.
 
-- `ports`: Used in the tron_witness1 service are exposed for API requests to interact with the TRON private network.
+- `ports`: Used in the tron-witness1 service are exposed for API requests to interact with the TRON private network.
 
 - `command`: Used for java-tron image start-up arguments.
     - `-jvm` is used for Java Virtual Machine parameters, which must be enclosed in double quotes and braces. `"{-Xmx16g -Xms12g}"` sets the maximum heap size to 16GB.
@@ -69,7 +69,7 @@ If you want to add more witness or other syncing fullnodes, you need to make bel
 
 **Add more services in docker-compose.yml**
 
-Inside the docker-compose.yml, refer to the commented containers `tron_witness2` and `tron_node2`. Make sure the configuration files are changed accordingly, following the details below.
+Inside the docker-compose.yml, refer to the commented containers `tron-witness2` and `tron-node2`. Make sure the configuration files are changed accordingly, following the details below.
 
 **Common settings**
 
@@ -144,9 +144,9 @@ Then, in other configuration files, add witness `container_name:port` to connect
 ```
 seed.node = {
   ip.list = [
-    # used for docker deployment, to connect containers in tron_witness defined in docker-compose.yml
-    "tron_witness1:18888",
-    "tron_witness2:18888",
+    # used for docker deployment, to connect containers in tron-witness defined in docker-compose.yml
+    "tron-witness1:18888",
+    "tron-witness2:18888",
     ...
   ]
 }
