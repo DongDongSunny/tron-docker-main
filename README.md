@@ -7,7 +7,7 @@ This repository provides tools and guidance to help the community quickly get st
 ## Features
 
 ### 🚀 Quick Start for Single FullNode
-Easily deploy a single TRON FullNode connected to **Mainnet** or **Testnet** using Docker. Follow the instructions to get your node up and running in minutes.
+Easily deploy a single TRON FullNode connected to **Mainnet** or **Nile testnet** using Docker. Follow the instructions to get your node up and running in minutes.
 
 ### 🔗 Private Chain Setup
 Set up your own private TRON blockchain network for development and testing. The provided configurations simplify deployment and management, making it ideal for custom use cases.
@@ -39,7 +39,7 @@ We also provide tools to facilitate the CI and testing process:
 2. **Start the services:**
    Navigate to the relevant directory and follow the instructions in the respective README to start the services.
 
-   **For TRON Network Deployment:**
+   **For TRON Network Deployment Related:**
    - **Single FullNode**: Use the [single_node](./single_node) folder.
    - **Private TRON Network**: Use the [private_net](./private_net) folder.
    - **Node Monitoring**: Use the [metric_monitor](./metric_monitor) folder.
