@@ -1,11 +1,9 @@
 package cmd
 
 import (
-	"log"
 	"os"
 
 	"github.com/spf13/cobra"
-	"github.com/spf13/cobra/doc"
 	"github.com/tronprotocol/tron-docker/cmd/docker"
 	"github.com/tronprotocol/tron-docker/cmd/node"
 	"github.com/tronprotocol/tron-docker/cmd/snapshot"
@@ -35,10 +33,10 @@ func init() {
 	rootCmd.AddCommand(node.NodeCmd)
 	rootCmd.AddCommand(docker.DockerCmd)
 
-	err := doc.GenMarkdownTree(rootCmd, "./docs")
-	if err != nil {
-		log.Fatal(err)
-	}
+	// err := doc.GenMarkdownTree(rootCmd, "./docs")
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.

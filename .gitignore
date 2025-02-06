@@ -16,3 +16,4 @@ output-directory/
 tron-docker.iml
 bin/
 trond
+.DS_Store

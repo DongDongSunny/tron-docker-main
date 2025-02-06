@@ -2,9 +2,9 @@
 set -euo pipefail
 
 # Configuration
-REPO_OWNER="jesseduffield"
+REPO_OWNER="tronprotocol"
 REPO_NAME="tron-docker"
-RELEASE_TAG="v0.45.2"
+RELEASE_TAG="v0.1.1"
 CHECKSUM_FILE="checksums.txt"
 RACKAGE_PREFIX="trond"
 
@@ -35,9 +35,11 @@ CHECKSUM_URL="https://github.com/${REPO_OWNER}/${REPO_NAME}/releases/download/${
 
 # Download files
 echo "Downloading ${ASSET_NAME}..."
+echo ${DOWNLOAD_URL}
 curl -L -O "${DOWNLOAD_URL}" --fail --progress-bar
 
 echo "Downloading checksum file..."
+echo ${DOWNLOAD_URL}
 curl -L -O "${CHECKSUM_URL}" --fail --progress-bar
 
 # Verify checksum
@@ -48,3 +50,7 @@ if ! sha256sum --check --ignore-missing "${CHECKSUM_FILE}"; then
 fi
 
 echo "✅ Success! ${ASSET_NAME} is valid."
+
+tar -xvzf ${ASSET_NAME}
+
+echo "Download completed successfully."
