@@ -7,7 +7,7 @@ This repository provides tools and guidance to help the community quickly get st
 ## Features
 
 ### 🚀 Quick Start for Single FullNode
-Easily deploy a single TRON FullNode connected to **Mainnet** or **NileNet** using Docker. Follow the instructions to get your node up and running in minutes.
+Easily deploy a single TRON FullNode connected to **Mainnet** or **Testnet** using Docker. Follow the instructions to get your node up and running in minutes.
 
 ### 🔗 Private Chain Setup
 Set up your own private TRON blockchain network for development and testing. The provided configurations simplify deployment and management, making it ideal for custom use cases.

@@ -55,7 +55,7 @@ The `-p` flag specifies the ports that the container needs to map to the host ma
 `--memory="16g"` sets the memory limit to 16GB, ensuring that the TRON container gets enough memory.
 
 By default, it will use the [configuration](https://github.com/tronprotocol/java-tron/blob/develop/framework/src/main/resources/config.conf),
-which sets the fullNode to connect to the mainnet with genesis block settings in `genesis.block`.
+which sets the fullNode to connect to the Mainnet with genesis block settings in `genesis.block`.
 Once the fullnode starts, it will begin to sync blocks with other peers starting from genesis block.
 
 Check the logs using command `docker exec tron-node tail -f ./logs/tron.log`. It will show the fullnode handshaking with peers successfully and then syncing for blocks.
@@ -85,7 +85,7 @@ Flags after `tronprotocol/java-tron` are used for java-tron start-up arguments:
 - `-w` means to start as a witness. You need to fill the `localwitness` field with private keys in configure file. Refer to the [**Run as Witness**](https://tronprotocol.github.io/documentation-en/using_javatron/installing_javatron/#startup-a-fullnode-that-produces-blocks). If you want to use keystore + password method, make sure the keystore is inside the mounted directory and remove `-d` to interact with console for password input.
 
 Inside the `config-localtest.conf` file `node.p2p.version` is used to set the P2P network id. Only nodes with the same network id can shake hands successfully.
-- TRON mainnet: node.p2p.version=11111
+- TRON Mainnet: node.p2p.version=11111
 - Nile testnet: node.p2p.version = 201910292
 - Private network：set to other values
 
@@ -93,7 +93,7 @@ Please note that if you want to switch to a different network, such as Mainnet o
 
 - **Configuration File**:
   - For Mainnet, use [main_net_config.conf](https://github.com/tronprotocol/tron-docker/blob/main/conf/main_net_config.conf).
-  - For NileNet, use the configuration file available on this [page](https://nileex.io/join/getJoinPage) or [nile_net_config.conf](https://github.com/tronprotocol/tron-docker/blob/main/conf/nile_net_config.conf).
+  - For Nile Testnet, use the configuration file available on this [page](https://nileex.io/join/getJoinPage) or [nile_net_config.conf](https://github.com/tronprotocol/tron-docker/blob/main/conf/nile_net_config.conf).
 
   The main differences between these two files are:
   - `genesis.block`: Used for initial account asset and witness setup.

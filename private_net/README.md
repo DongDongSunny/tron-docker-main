@@ -77,7 +77,7 @@ For all configurations, you need to set `node.p2p.version` to the same value and
 ```
 node {
  p2p {
-    version = 1 # 11111: mainnet; 20180622: nilenet; others for private networks.
+    version = 1 # 11111: Mainnet; 20180622: Nile testnet; others for private networks.
   }
   ...
 }
