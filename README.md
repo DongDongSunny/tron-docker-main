@@ -32,7 +32,7 @@ git clone https://github.com/tronprotocol/tron-docker.git
 cd tron-docker
 ```
 
-Then, navigate to the relevant directory and follow the instructions in the respective README to start the services.
+Then, navigate to the relevant directory and follow the instructions in the respective README to start the services：
 - **TRON network deployment related:**
    - **Single FullNode**: Use the [single_node](./single_node) folder.
    - **Private TRON network**: Use the [private_net](./private_net) folder.
