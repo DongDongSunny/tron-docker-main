@@ -4,13 +4,13 @@ This repository provides tools and guidance to help the community quickly get st
 
 ## Features
 
-### 🚀 Quick Start for Single FullNode
+### 🚀 Quick start for single FullNode
 Easily deploy a single TRON FullNode connected to **Mainnet** or **Nile testnet** using Docker. Follow the instructions to get your node up and running in minutes.
 
-### 🔗 Private Chain Setup
+### 🔗 Private chain setup
 Set up your own private TRON blockchain network for development and testing. The provided configurations simplify deployment and management, making it ideal for custom use cases.
 
-### 📊 Node Monitoring with Prometheus and Grafana
+### 📊 Node monitoring with Prometheus and Grafana
 Monitor the health and performance of your TRON nodes with integrated **Prometheus** and **Grafana** services. Real-time metrics and visualizations are just a few steps away.
 
 ### 🛠️ Tools
