@@ -25,20 +25,20 @@ We also provide tools to facilitate the CI and testing process:
 - Docker Compose
 
 ### Start the services
-   First clone the repository:
-   ```sh
-   git clone https://github.com/tronprotocol/tron-docker.git
-   cd tron-docker
-   ```
+First clone the repository:
 
-   Then, navigate to the relevant directory and follow the instructions in the respective README to start the services.
+```sh
+git clone https://github.com/tronprotocol/tron-docker.git
+cd tron-docker
+```
 
-   **TRON network deployment related:**
+Then, navigate to the relevant directory and follow the instructions in the respective README to start the services.
+- **TRON network deployment related:**
    - **Single FullNode**: Use the [single_node](./single_node) folder.
    - **Private TRON network**: Use the [private_net](./private_net) folder.
    - **Node monitoring**: Use the [metric_monitor](./metric_monitor) folder.
 
-   **Tools**:
+- **Tools**:
    - **Gradle Docker**: Automate Docker image builds and testing. Check the [gradle docker](./tools/docker/README.md) documentation.
    - **DBFork**: Perform shadow fork testing. Follow the [DBFork guidance](./tools/dbfork/README.md).
 
