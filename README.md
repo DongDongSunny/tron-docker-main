@@ -24,16 +24,14 @@ We also provide tools to facilitate the CI and testing process:
 - Docker
 - Docker Compose
 
-### Installation
-
-1. **Clone the repository:**
+### Start the services
+   First clone the repository:
    ```sh
    git clone https://github.com/tronprotocol/tron-docker.git
    cd tron-docker
    ```
 
-2. **Start the services:**
-   Navigate to the relevant directory and follow the instructions in the respective README to start the services.
+   Then, navigate to the relevant directory and follow the instructions in the respective README to start the services.
 
    **TRON network deployment related:**
    - **Single FullNode**: Use the [single_node](./single_node) folder.
