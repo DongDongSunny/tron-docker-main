@@ -17,3 +17,6 @@ tron-docker.iml
 bin/
 trond
 .DS_Store
+
+go
+go1.*
