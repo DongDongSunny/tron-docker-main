@@ -52,7 +52,6 @@ for arg in "$@"; do
             echo "Clear enabled. All new files will be removed (except files in ./tools/trond)."
             ;;
         *)
-            # other arguments can be added here if necessary
             ;;
     esac
 done
@@ -71,15 +70,15 @@ if [[ "$FORCE_CLEAN" == true ]]; then
     echo "Cleaning up existing Go files and binaries..."
 
     # Remove the downloaded archive if it exists
-    if [[ -f "$GO_ARCHIVE" ]]; then
-        rm -f "$GO_ARCHIVE"
-        echo "Removed $GO_ARCHIVE"
+    if [[ -f "go/$GO_ARCHIVE" ]]; then
+        rm -f "go/$GO_ARCHIVE"
+        echo "Removed go/$GO_ARCHIVE"
     fi
 
     # Remove the extracted Go directory if it exists
     if [[ -d "go" ]]; then
         rm -rf go
-        echo "Removed go directory"
+        echo "Cleaned up Go directory"
     fi
 
     # Remove the trond binary if it exists
@@ -87,44 +86,43 @@ if [[ "$FORCE_CLEAN" == true ]]; then
         rm -f "./tools/trond/trond"
         echo "Removed trond binary"
     fi
+
+    # If clear is requested, stop here
+    if [[ "$CLEAR" == true ]]; then
+        exit 0
+    fi
 fi
 
-# If --clear flag is used, remove additional files (but not files in ./tools/trond)
-if [[ "$CLEAR" == true ]]; then
-    echo "Clearing all new files ..."
-
-    # # Remove any files inside the ./tools/trond directory (excluding the directory itself)
-    # if [[ -d "./tools/trond" ]]; then
-    #     rm -f ./tools/trond/*
-    #     echo "Removed all files in ./tools/trond (excluding the directory itself)"
-    # fi
-    exit 0
+# Create a directory for Go
+if [[ ! -d "go" ]]; then
+    mkdir -p go
+    echo "Created go directory"
 fi
 
 # If Go is not installed, download and extract it
 if [[ "$SYSTEM_GO" == false ]]; then
     # Check if the Go archive is already downloaded
-    if [[ -f "$GO_ARCHIVE" ]]; then
-        echo "$GO_ARCHIVE already exists. Skipping download."
+    if [[ -f "go/$GO_ARCHIVE" ]]; then
+        echo "go/$GO_ARCHIVE already exists. Skipping download."
     else
         echo "Downloading Go from $GO_URL..."
-        curl -LO "$GO_URL"
+        curl -Lo "go/$GO_ARCHIVE" "$GO_URL"
     fi
 
-    # Extract Golang to current directory
-    if [[ -d "go" ]]; then
+    # Extract Golang to the go directory
+    if [[ -d "go/bin" ]]; then
         echo "Go is already extracted. Skipping extraction."
     else
         echo "Extracting Go..."
-        tar -xzf "$GO_ARCHIVE"
+        tar -xzf "go/$GO_ARCHIVE" -C go --strip-components=1
     fi
 
-    # Set up Go binary path for the current directory (absolute path from root)
+    # Set up Go binary path for the current directory
     GO_BIN="$(pwd)/go/bin"
     echo "Go binary path set to: $GO_BIN"
     export PATH="$GO_BIN:$PATH"
 else
-    # Use the system Go binary location (absolute path from root)
+    # Use the system Go binary location
     GO_BIN=$(dirname "$(command -v go)")
     echo "Using system Go binary: $GO_BIN"
 fi
