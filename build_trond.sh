@@ -77,7 +77,7 @@ if [[ "$SYSTEM_GO" == false ]]; then
     GO_BIN="./go/bin"
     export PATH="$GO_BIN:$PATH"
 else
-    GO_BIN="$(dirname $(command -v go))"
+    GO_BIN="$(dirname "$(command -v go)")"
 fi
 
 # Verify Go binary
@@ -117,7 +117,7 @@ mv trond ../../
 
 # Return to the original directory
 echo "Returning to the original directory..."
-cd - >/dev/null
+cd - >/dev/null || exit
 
 if [[ -f "./trond" ]]; then
     echo "Binary moved successfully! Run ./trond to execute."
