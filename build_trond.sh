@@ -4,13 +4,16 @@
 OS=$(uname -s)
 ARCH=$(uname -m)
 
+# Set Go version to 1.23.6
+GO_VERSION="1.23.6"
+
 # Determine download URL and archive filename based on OS and ARCH
 if [[ "$OS" == "Linux" ]]; then
     if [[ "$ARCH" == "x86_64" ]]; then
-        GO_ARCHIVE="go1.20.8.linux-amd64.tar.gz"
+        GO_ARCHIVE="go$GO_VERSION.linux-amd64.tar.gz"
         GO_URL="https://go.dev/dl/$GO_ARCHIVE"
     elif [[ "$ARCH" == "arm64" || "$ARCH" == "aarch64" ]]; then
-        GO_ARCHIVE="go1.20.8.linux-arm64.tar.gz"
+        GO_ARCHIVE="go$GO_VERSION.linux-arm64.tar.gz"
         GO_URL="https://go.dev/dl/$GO_ARCHIVE"
     else
         echo "Unsupported architecture: $ARCH"
@@ -18,10 +21,10 @@ if [[ "$OS" == "Linux" ]]; then
     fi
 elif [[ "$OS" == "Darwin" ]]; then
     if [[ "$ARCH" == "x86_64" ]]; then
-        GO_ARCHIVE="go1.20.8.darwin-amd64.tar.gz"
+        GO_ARCHIVE="go$GO_VERSION.darwin-amd64.tar.gz"
         GO_URL="https://go.dev/dl/$GO_ARCHIVE"
     elif [[ "$ARCH" == "arm64" ]]; then
-        GO_ARCHIVE="go1.20.8.darwin-arm64.tar.gz"
+        GO_ARCHIVE="go$GO_VERSION.darwin-arm64.tar.gz"
         GO_URL="https://go.dev/dl/$GO_ARCHIVE"
     else
         echo "Unsupported architecture: $ARCH"
@@ -32,13 +35,27 @@ else
     exit 1
 fi
 
-
 # Parse command-line arguments
 FORCE_CLEAN=false
-if [[ "$1" == "--clean" ]]; then
-    FORCE_CLEAN=true
-    echo "Force clean enabled. Existing files will be removed."
-fi
+CLEAR=false
+
+# Process flags
+for arg in "$@"; do
+    case $arg in
+        --clean)
+            FORCE_CLEAN=true
+            echo "Force clean enabled. Existing files will be removed."
+            ;;
+        --clear)
+            CLEAR=true
+            FORCE_CLEAN=true
+            echo "Clear enabled. All new files will be removed (except files in ./tools/trond)."
+            ;;
+        *)
+            # other arguments can be added here if necessary
+            ;;
+    esac
+done
 
 # Check if Go is already installed on the system
 if command -v go &> /dev/null; then
@@ -49,10 +66,39 @@ else
     SYSTEM_GO=false
 fi
 
-# If --clean is used, remove existing files, even if Go is installed
+# If --clean or --clear is used, remove existing files
 if [[ "$FORCE_CLEAN" == true ]]; then
-    echo "Cleaning up existing Go files..."
-    rm -rf "$GO_ARCHIVE" go ./tools/trond/trond
+    echo "Cleaning up existing Go files and binaries..."
+
+    # Remove the downloaded archive if it exists
+    if [[ -f "$GO_ARCHIVE" ]]; then
+        rm -f "$GO_ARCHIVE"
+        echo "Removed $GO_ARCHIVE"
+    fi
+
+    # Remove the extracted Go directory if it exists
+    if [[ -d "go" ]]; then
+        rm -rf go
+        echo "Removed go directory"
+    fi
+
+    # Remove the trond binary if it exists
+    if [[ -f "./tools/trond/trond" ]]; then
+        rm -f "./tools/trond/trond"
+        echo "Removed trond binary"
+    fi
+fi
+
+# If --clear flag is used, remove additional files (but not files in ./tools/trond)
+if [[ "$CLEAR" == true ]]; then
+    echo "Clearing all new files ..."
+
+    # # Remove any files inside the ./tools/trond directory (excluding the directory itself)
+    # if [[ -d "./tools/trond" ]]; then
+    #     rm -f ./tools/trond/*
+    #     echo "Removed all files in ./tools/trond (excluding the directory itself)"
+    # fi
+    exit 0
 fi
 
 # If Go is not installed, download and extract it
@@ -73,16 +119,19 @@ if [[ "$SYSTEM_GO" == false ]]; then
         tar -xzf "$GO_ARCHIVE"
     fi
 
-    # Set up Go binary path for the current directory
-    GO_BIN="./go/bin"
+    # Set up Go binary path for the current directory (absolute path from root)
+    GO_BIN="$(pwd)/go/bin"
+    echo "Go binary path set to: $GO_BIN"
     export PATH="$GO_BIN:$PATH"
 else
-    GO_BIN="$(dirname "$(command -v go)")"
+    # Use the system Go binary location (absolute path from root)
+    GO_BIN=$(dirname "$(command -v go)")
+    echo "Using system Go binary: $GO_BIN"
 fi
 
-# Verify Go binary
-if ! command -v go &> /dev/null; then
-    echo "Go setup failed."
+# Verify Go binary exists
+if [[ ! -f "$GO_BIN/go" ]]; then
+    echo "Error: Go binary not found at $GO_BIN/go"
     exit 1
 fi
 
