@@ -8,7 +8,6 @@ import (
 	"github.com/tronprotocol/tron-docker/utils"
 )
 
-// listCmd represents the listFull command
 var downloadCmd = &cobra.Command{
 	Use:   "download",
 	Short: "Download target backup snapshot to local current directory",
@@ -53,7 +52,95 @@ Note:
 	},
 }
 
+var downloadDefaultCmd = &cobra.Command{
+	Use:   "default-main",
+	Short: "Download latest mainnet lite fullnode snapshot from default source to local current directory",
+	Long: `This will download the latest snapshot from the default source to the local current directory.
+
+ - Default source: 34.143.247.77(Singapore)`,
+	Run: func(cmd *cobra.Command, args []string) {
+		// Get the flag value
+		domain := "34.143.247.77"
+
+		// Get the flag value
+		backup, _ := utils.GetLatestSnapshot(domain, false)
+		fmt.Println("Latest backup from 34.143.247.77 is:", backup)
+		fmt.Println("Begin downloading...")
+
+		// Get the flag value
+		nType := "lite"
+
+		if !utils.CheckDomain(domain) {
+			fmt.Println("Error: domain value not supported\nRun \"./trond snapshot source\" to check available items")
+			return
+		}
+
+		downloadURLMD5 := utils.GenerateSnapshotMD5DownloadURL(domain, backup, nType)
+		if downloadURLMD5 == "" {
+			fmt.Println("Error: --type value not supported, available: full, lite")
+			return
+		}
+		downloadMD5File, err := utils.DownloadFileWithProgress(downloadURLMD5, "")
+		if err != nil {
+			fmt.Println("Error:", err)
+		}
+		downloadURL := utils.GenerateSnapshotDownloadURL(domain, backup, nType)
+		if downloadURL == "" {
+			fmt.Println("Error: --type value not supported, available: full, lite")
+			return
+		}
+		if _, err := utils.DownloadFileWithProgress(downloadURL, downloadMD5File); err != nil {
+			fmt.Println("Error:", err)
+		}
+	},
+}
+
+var downloadDefaultNileCmd = &cobra.Command{
+	Use:   "default-nile",
+	Short: "Download latest nile testnet lite fullnode snapshot from default source to local current directory",
+	Long: `This will download the latest snapshot from the default source to the local current directory.
+
+ - Default source: database.nileex.io`,
+	Run: func(cmd *cobra.Command, args []string) {
+		// Get the flag value
+		domain := "database.nileex.io"
+
+		// Get the flag value
+		backup, _ := utils.GetLatestNileSnapshot(domain, false)
+		fmt.Println("Latest backup from database.nileex.io is:", backup)
+		fmt.Println("Begin downloading...")
+
+		// Get the flag value
+		nType := "lite"
+
+		if !utils.CheckDomain(domain) {
+			fmt.Println("Error: domain value not supported\nRun \"./trond snapshot source\" to check available items")
+			return
+		}
+
+		downloadURLMD5 := utils.GenerateSnapshotMD5DownloadURL(domain, backup, nType)
+		if downloadURLMD5 == "" {
+			fmt.Println("Error: --type value not supported, available: full, lite")
+			return
+		}
+		downloadMD5File, err := utils.DownloadFileWithProgress(downloadURLMD5, "")
+		if err != nil {
+			fmt.Println("Error:", err)
+		}
+		downloadURL := utils.GenerateSnapshotDownloadURL(domain, backup, nType)
+		if downloadURL == "" {
+			fmt.Println("Error: --type value not supported, available: full, lite")
+			return
+		}
+		if _, err := utils.DownloadFileWithProgress(downloadURL, downloadMD5File); err != nil {
+			fmt.Println("Error:", err)
+		}
+	},
+}
+
 func init() {
+	downloadCmd.AddCommand(downloadDefaultCmd)
+	downloadCmd.AddCommand(downloadDefaultNileCmd)
 	SnapshotCmd.AddCommand(downloadCmd)
 
 	downloadCmd.Flags().StringP(

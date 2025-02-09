@@ -9,6 +9,7 @@ import (
 	"net/url"
 	"os"
 	"path"
+	"sort"
 	"strings"
 	"time"
 
@@ -112,7 +113,7 @@ func ShowSnapshotListForNile() error {
 	return nil
 }
 
-func ShowSnapshotList(domain string, https bool) error {
+func getSnapshotList(domain string, https bool) ([]string, error) {
 	webURL := "http://" + domain
 	if https {
 		webURL = "https://" + domain
@@ -120,24 +121,76 @@ func ShowSnapshotList(domain string, https bool) error {
 
 	links, err := fetchAndExtractLinks(webURL)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	fmt.Println("Available backup:")
+	var snapshots []string
 	for _, link := range links {
-		fmt.Println(link)
 		basePath, err := extractBackupPart(link)
 		if err != nil {
-			return err
+			return nil, err
 		}
 		if len(basePath) == 0 {
 			continue
 		}
 
-		fmt.Println("  " + basePath)
+		snapshots = append(snapshots, basePath)
+	}
+
+	return snapshots, nil
+}
+
+func ShowSnapshotList(domain string, https bool) error {
+	snapshots, err := getSnapshotList(domain, https)
+	if err != nil {
+		return err
+	}
+
+	fmt.Println("Available backup:")
+	for _, snapshot := range snapshots {
+		fmt.Println("  " + snapshot)
 	}
 
 	return nil
+}
+
+func GetLatestSnapshot(domain string, https bool) (string, error) {
+	snapshots, err := getSnapshotList(domain, https)
+	if err != nil {
+		return "", err
+	}
+
+	// Remove "backup" prefix and store cleaned dates
+	var dates []string
+	for _, backup := range snapshots {
+		dates = append(dates, strings.TrimPrefix(backup, "backup"))
+	}
+
+	// Sort dates in ascending order
+	sort.Strings(dates)
+
+	// Find the largest date
+	largestDate := dates[len(dates)-1]
+
+	return "backup" + largestDate, nil
+}
+
+func GetLatestNileSnapshot(domain string, https bool) (string, error) {
+	snapshots := generateDateList()
+
+	// Remove "backup" prefix and store cleaned dates
+	var dates []string
+	for _, backup := range snapshots {
+		dates = append(dates, strings.TrimPrefix(backup, "backup"))
+	}
+
+	// Sort dates in ascending order
+	sort.Strings(dates)
+
+	// Find the largest date
+	largestDate := dates[len(dates)-1]
+
+	return "backup" + largestDate, nil
 }
 
 // getFileNameFromURL extracts the file name from the URL path
@@ -270,7 +323,7 @@ func DownloadFileWithProgress(fileURL, md5FilePath string) (string, error) {
 		progressbar.OptionSetRenderBlankState(true),
 		progressbar.OptionShowIts(),
 		progressbar.OptionOnCompletion(func() {
-			fmt.Println("\nDownload complete:", filename)
+			fmt.Println("Download complete:", filename)
 		}),
 	)
 
@@ -320,12 +373,12 @@ func DownloadFileWithProgress(fileURL, md5FilePath string) (string, error) {
 func GenerateSnapshotDownloadURL(domain, backup, nType string) string {
 	if nType == "full" {
 		if IsNile(domain) {
-			return config.SnapshotDataSource[config.STNileLevel][domain].DownloadURL + backup + "/FullNode_output-directory.tgz"
+			return config.SnapshotDataSource[config.STNileLevel][domain].DownloadURL + "/" + backup + "/FullNode_output-directory.tgz"
 		}
 		return "http://" + domain + "/" + backup + "/FullNode_output-directory.tgz"
 	} else if nType == "lite" {
 		if IsNile(domain) {
-			return config.SnapshotDataSource[config.STNileLevel][domain].DownloadURL + backup + "/LiteFullNode_output-directory.tgz"
+			return config.SnapshotDataSource[config.STNileLevel][domain].DownloadURL + "/" + backup + "/LiteFullNode_output-directory.tgz"
 		}
 		return "http://" + domain + "/" + backup + "/LiteFullNode_output-directory.tgz"
 	}
@@ -335,12 +388,12 @@ func GenerateSnapshotDownloadURL(domain, backup, nType string) string {
 func GenerateSnapshotMD5DownloadURL(domain, backup, nType string) string {
 	if nType == "full" {
 		if IsNile(domain) {
-			return config.SnapshotDataSource[config.STNileLevel][domain].DownloadURL + backup + "/FullNode_output-directory.tgz.md5sum"
+			return config.SnapshotDataSource[config.STNileLevel][domain].DownloadURL + "/" + backup + "/FullNode_output-directory.tgz.md5sum"
 		}
 		return "http://" + domain + "/" + backup + "/FullNode_output-directory.tgz.md5sum"
 	} else if nType == "lite" {
 		if IsNile(domain) {
-			return config.SnapshotDataSource[config.STNileLevel][domain].DownloadURL + backup + "/LiteFullNode_output-directory.tgz.md5sum"
+			return config.SnapshotDataSource[config.STNileLevel][domain].DownloadURL + "/" + backup + "/LiteFullNode_output-directory.tgz.md5sum"
 		}
 		return "http://" + domain + "/" + backup + "/LiteFullNode_output-directory.tgz.md5sum"
 	}

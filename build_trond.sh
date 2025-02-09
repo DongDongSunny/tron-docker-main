@@ -60,7 +60,6 @@ done
 if command -v go &> /dev/null; then
     echo "Go is already installed on the system: $(go version)"
     SYSTEM_GO=true
-    SYSTEM_GO=false
 else
     SYSTEM_GO=false
 fi
