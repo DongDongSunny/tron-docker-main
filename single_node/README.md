@@ -23,7 +23,7 @@ Please download and install the latest version of Docker from the official Docke
 * Docker Installation for [Windows](https://docs.docker.com/docker-for-windows/install/)
 * Docker Installation for [Linux](https://docs.docker.com/desktop/setup/install/linux/)
 
-Then check the Docker resource settings to ensure it has at least 16GB of memory.
+Then check the Docker resource settings to ensure it has at least 16GB of memory per FullNode container.
 
 ## Get Docker image
 There are two ways to obtain the TRON image:

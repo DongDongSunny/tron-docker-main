@@ -20,7 +20,7 @@ Please download and install the latest version of Docker from the official Docke
 
 Then check the Docker resource settings to ensure it has at least 3GB of memory per TRON node.
 
-**Notice:** The actual memory consumption for a FullNode depends heavily on your configurations and use case. Factors such as block generation frequency, transactions per second (TPS), and external API request QPS can significantly impact memory usage. To help you get started quickly, the memory consumption under the following guidance should remain below **3GB**. However, for a TRON Mainnet Super Representative (SR) FullNode capable of supporting **2000 TPS**, the maximum memory consumption can reach up to **12GB**.
+**Notice:** The actual memory consumption for a FullNode depends heavily on your configurations and use case. Factors such as block generation frequency, transactions per second (TPS), and external API request QPS can significantly impact memory usage. To help you get started quickly, the memory consumption under the following guidance is within **3GB**. However, for a TRON Mainnet Super Representative (SR) FullNode capable of supporting **2000 TPS**, the memory resource per FullNode container should set above **16GB**.
 
 
 ## Quick-Start using Docker
@@ -61,7 +61,7 @@ Check the docker-compose.yml, the two container services use the same TRON image
 - `ports`: Used in the tron-witness1 service are exposed for API requests to interact with the TRON private network.
 
 - `command`: Used for java-tron image start-up arguments.
-    - `-jvm` is used for Java Virtual Machine parameters, which must be enclosed in double quotes and braces. `"{-Xmx12g -Xms3g}"` sets the maximum and minimum heap size to 12GB and 3GB.
+    - `-jvm` is used for Java Virtual Machine parameters, which must be enclosed in double quotes and braces. `"{-Xmx16g -Xms3g}"` sets the maximum and minimum heap size to 16GB and 3GB.
     - `-c` defines the configuration file to use.
     - `-d` defines the database file to use. By mounting a local data directory, it ensures that the block data is persistent.
     - `-w` means to start as a witness. You need to fill the `localwitness` field with private keys in the configuration file. Refer to [**Run as Witness**](https://tronprotocol.github.io/documentation-en/using_javatron/installing_javatron/#startup-a-fullnode-that-produces-blocks).

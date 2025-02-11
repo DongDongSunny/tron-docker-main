@@ -8,7 +8,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 12g
+          memory: 16g
     ports:
       - "8090:8090" # for external http API request
       - "50051:50051" # for external rpc API request
@@ -16,7 +16,7 @@ services:
       - ../conf:/java-tron/conf
       - ./datadir:/java-tron/data # mount a local directory to make the blocks data persistent.
     command: >
-      -jvm "{-Xmx12g -Xms3g -XX:+UseConcMarkSweepGC}" -c /java-tron/conf/private_net_config_witness1.conf -d /java-tron/data -w
+      -jvm "{-Xmx16g -Xms3g -XX:+UseConcMarkSweepGC}" -c /java-tron/conf/private_net_config_witness1.conf -d /java-tron/data -w
 
     #  tron-witness2:
     #    image: tronprotocol/java-tron:latest
@@ -26,11 +26,11 @@ services:
     #    deploy:
     #      resources:
     #        limits:
-    #          memory: 12g
+    #          memory: 16g
     #    volumes:
     #      - ../conf:/java-tron/conf
     #    command: >
-    #      -jvm "{-Xmx12g -Xms3g -XX:+UseConcMarkSweepGC}"
+    #      -jvm "{-Xmx16g -Xms3g -XX:+UseConcMarkSweepGC}"
     #      -c /java-tron/conf/private_net_config_witness2.conf
     #      -w
   tron-node1:
@@ -41,11 +41,11 @@ services:
     deploy:
       resources:
         limits:
-          memory: 12g
+          memory: 16g
     volumes:
       - ../conf:/java-tron/conf
     command: >
-      -jvm "{-Xmx12g -Xms3g -XX:+UseConcMarkSweepGC}" -c /java-tron/conf/private_net_config_others.conf
+      -jvm "{-Xmx16g -Xms3g -XX:+UseConcMarkSweepGC}" -c /java-tron/conf/private_net_config_others.conf
 
 #  tron-node2:
 #    image: tronprotocol/java-tron:latest
@@ -55,11 +55,11 @@ services:
 #    deploy:
 #      resources:
 #        limits:
-#          memory: 12g
+#          memory: 16g
 #    volumes:
 #      - ../conf:/java-tron/conf
 #    command: >
-#      -jvm "{-Xmx12g -Xms3g -XX:+UseConcMarkSweepGC}"
+#      -jvm "{-Xmx16g -Xms3g -XX:+UseConcMarkSweepGC}"
 #      -c /java-tron/conf/private_net_config_others.conf
 networks:
   tron_private_network:
