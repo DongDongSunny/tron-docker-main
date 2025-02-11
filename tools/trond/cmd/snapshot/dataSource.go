@@ -1,6 +1,7 @@
 package snapshot
 
 import (
+	"github.com/MakeNowJust/heredoc/v2"
 	"github.com/spf13/cobra"
 	"github.com/tronprotocol/tron-docker/utils"
 )
@@ -12,6 +13,10 @@ var sourceCmd = &cobra.Command{
 	Long: `Available snapshot sources will be shown.
 Support different types of snapshot (Fullnode, Lite Fullnode), in different regions (Singapore, America).
 You can choose the one you need.`,
+	Example: heredoc.Doc(`
+			# Show available snapshot source
+			$ ./trond snapshot source
+		`),
 	Run: func(cmd *cobra.Command, args []string) {
 		utils.ShowSnapshotDataSourceList()
 	},

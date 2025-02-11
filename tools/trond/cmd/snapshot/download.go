@@ -4,18 +4,23 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/MakeNowJust/heredoc/v2"
 	"github.com/spf13/cobra"
 	"github.com/tronprotocol/tron-docker/utils"
 )
 
 var downloadCmd = &cobra.Command{
 	Use:   "download",
-	Short: "Download target backup snapshot to local current directory",
+	Short: "Download target backup snapshot to current directory",
 	Long: `Refer to the snapshot source domain and backup name you input, the available backup snapshot will be downloaded to the local directory.
 
 Note:
  - because some snapshot sources have multiple snapshot types, you need to specify the type(full, lite) of snapshot you want to download.
  - the snapshot is large, it may need a long time to finish the download, depends on your network performance.`,
+	Example: heredoc.Doc(`
+			# Download target backup snapshot (backup20250205 in 34.143.247.77) to current directory
+			$ ./trond snapshot download -d 34.143.247.77 -b backup20250205 -t lite
+		`),
 	Run: func(cmd *cobra.Command, args []string) {
 		// Get the flag value
 		domain, _ := cmd.Flags().GetString("domain")
@@ -54,10 +59,14 @@ Note:
 
 var downloadDefaultCmd = &cobra.Command{
 	Use:   "default-main",
-	Short: "Download latest mainnet lite fullnode snapshot from default source to local current directory",
-	Long: `This will download the latest snapshot from the default source to the local current directory.
+	Short: "Download latest mainnet lite fullnode snapshot from default source to current directory",
+	Long: `This will download the latest snapshot from the default source to the current directory.
 
  - Default source: 34.143.247.77(Singapore)`,
+	Example: heredoc.Doc(`
+			# Download latest mainnet lite fullnode snapshot from default source(34.143.247.77) to current directory
+			$ ./trond snapshot download default-main
+		`),
 	Run: func(cmd *cobra.Command, args []string) {
 		// Get the flag value
 		domain := "34.143.247.77"
@@ -98,9 +107,13 @@ var downloadDefaultCmd = &cobra.Command{
 var downloadDefaultNileCmd = &cobra.Command{
 	Use:   "default-nile",
 	Short: "Download latest nile testnet lite fullnode snapshot from default source to local current directory",
-	Long: `This will download the latest snapshot from the default source to the local current directory.
+	Long: `This will download the latest snapshot from the default source to the current directory.
 
  - Default source: database.nileex.io`,
+	Example: heredoc.Doc(`
+			# Download latest nile testnet lite fullnode snapshot from default source(database.nileex.io) to current directory
+			$ ./trond snapshot download default-nile
+		`),
 	Run: func(cmd *cobra.Command, args []string) {
 		// Get the flag value
 		domain := "database.nileex.io"
@@ -145,10 +158,10 @@ func init() {
 
 	downloadCmd.Flags().StringP(
 		"domain", "d", "",
-		"Domain for target snapshot source(required).\nPlease run command \"./trond snapshot source\" to get the available snapshot source domains.") // -d or --domain
+		"Domain for target snapshot source(required).\nPlease run command \"./trond snapshot source\" to get the available snapshot source domains.")
 	downloadCmd.Flags().StringP(
 		"backup", "b", "",
-		"Backup name(required).\nPlease run command \"./trond snapshot list\" to get the available backup name under target source domains.") // -b or --backup
+		"Backup name(required).\nPlease run command \"./trond snapshot list\" to get the available backup name under target source domains.")
 	downloadCmd.Flags().StringP(
 		"type", "t", "",
 		"Node type of the snapshot(required, available: full, lite).")
@@ -163,5 +176,4 @@ func init() {
 	if err := downloadCmd.MarkFlagRequired("type"); err != nil {
 		log.Fatalf("Error marking type flag as required: %v", err)
 	}
-
 }

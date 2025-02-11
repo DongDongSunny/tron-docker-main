@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/MakeNowJust/heredoc/v2"
 	"github.com/spf13/cobra"
 	"github.com/tronprotocol/tron-docker/utils"
 )
@@ -17,6 +18,13 @@ Default, will test the "tronprotocol/java-tron:latest" image. You can specify th
 The test includes the following tasks:
   1. Perform port checks
   2. Verify whether block synchronization is functioning normally`,
+	Example: heredoc.Doc(`
+			# Build java-tron docker image, defualt: tronprotocol/java-tron:latest
+			$ ./trond docker test
+
+			# Build java-tron docker image with specified org, artifact and version
+			$ ./trond docker test -o tronprotocol -a java-tron -v latest
+		`),
 	Run: func(cmd *cobra.Command, args []string) {
 
 		if yes, err := utils.IsJDK1_8(); err != nil || !yes {

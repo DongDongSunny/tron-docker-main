@@ -3,7 +3,9 @@ package cmd
 import (
 	"os"
 
+	"github.com/MakeNowJust/heredoc/v2"
 	"github.com/spf13/cobra"
+
 	// "github.com/spf13/cobra/doc"
 	"github.com/tronprotocol/tron-docker/cmd/docker"
 	"github.com/tronprotocol/tron-docker/cmd/node"
@@ -15,6 +17,16 @@ var rootCmd = &cobra.Command{
 	Use:   "trond",
 	Short: "Docker automation for TRON nodes",
 	Long:  `This tool bundles multiple commands into one, enabling the community to quickly get started with TRON network interaction and development.`,
+	Example: heredoc.Doc(`
+			# Help information for docker command
+			$ ./trond docker
+
+			# Help information for snapshot command
+			$ ./trond snapshot
+
+			# Help information for node command
+			$ ./trond node
+		`),
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) { },

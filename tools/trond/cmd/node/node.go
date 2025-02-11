@@ -1,6 +1,7 @@
 package node
 
 import (
+	"github.com/MakeNowJust/heredoc/v2"
 	"github.com/spf13/cobra"
 )
 
@@ -21,6 +22,22 @@ var NodeCmd = &cobra.Command{
   7. deploy wallet-cli
 
 Please refer to the available commands below.`,
+	Example: heredoc.Doc(`
+			# Help information for node command
+			$ ./trond node
+
+			# Check and configure node local environment
+			$ ./trond node env
+
+			# Run single java-tron fullnode for main network
+			$ ./trond node run-single -t full-main
+
+			# Run single java-tron fullnode for nile network
+			$ ./trond node run-single -t full-nile
+
+			# Run single java-tron witness node for private network
+			$ ./trond node run-single -t witness-private
+		`),
 }
 
 func init() {

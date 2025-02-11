@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/MakeNowJust/heredoc/v2"
 	"github.com/spf13/cobra"
 	"github.com/tronprotocol/tron-docker/utils"
 )
@@ -26,6 +27,16 @@ The following files are required:
         nile network: ../../single_node/docker-compose.fullnode.nile.yaml
         private network: ../../single_node/docker-compose.witness.private.yaml
   - Log directory: ./logs`,
+	Example: heredoc.Doc(`
+			# Run single java-tron fullnode for main network
+			$ ./trond node run-single -t full-main
+
+			# Run single java-tron fullnode for nile network
+			$ ./trond node run-single -t full-nile
+
+			# Run single java-tron witness node for private network
+			$ ./trond node run-single -t witness-private
+		`),
 	Run: func(cmd *cobra.Command, args []string) {
 		service, _ := cmd.Flags().GetString("service")
 		if len(service) == 0 {
@@ -63,7 +74,7 @@ func init() {
 
 	runSingleCmd.Flags().StringP(
 		"service", "s", "",
-		"Service name you want to start in docker-compose.*.yaml (optional, default: tron)")
+		"Service name you want to start in docker-compose.*.yaml (optional, default: tron-node)")
 
 	if err := runSingleCmd.MarkFlagRequired("type"); err != nil {
 		log.Fatalf("Error marking type flag as required: %v", err)

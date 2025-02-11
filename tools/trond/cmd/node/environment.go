@@ -3,6 +3,7 @@ package node
 import (
 	"fmt"
 
+	"github.com/MakeNowJust/heredoc/v2"
 	"github.com/spf13/cobra"
 	"github.com/tronprotocol/tron-docker/utils"
 )
@@ -29,6 +30,10 @@ The following files are required:
       multiple nodes
 	    private network: ../../private_net/docker-compose.private.yaml
   - Log directory: ./logs (if not exists, will create it)`,
+	Example: heredoc.Doc(`
+			# Check and configure node local environment
+			$ ./trond node env
+		`),
 	Run: func(cmd *cobra.Command, args []string) {
 		if yes, err := utils.PwdEndsWith("tron-docker/tools/trond"); err != nil || !yes {
 			fmt.Println("Error: current directory is wrong, should be tron-docker/tools/trond")

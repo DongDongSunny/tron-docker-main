@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/MakeNowJust/heredoc/v2"
 	"github.com/spf13/cobra"
 	"github.com/tronprotocol/tron-docker/utils"
 )
@@ -14,6 +15,10 @@ var listCmd = &cobra.Command{
 	Short: "List available snapshots of target source.",
 	Long: `Refer to the snapshot source domain you input, the available backup snapshots will be showen below.
 Note: different domain may have different snapshots that can be downloaded.`,
+	Example: heredoc.Doc(`
+			# List available snapshots of target source domain 34.143.247.77
+			$ ./trond snapshot list -d 34.143.247.77
+		`),
 	Run: func(cmd *cobra.Command, args []string) {
 
 		// Get the flag value

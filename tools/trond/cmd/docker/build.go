@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/MakeNowJust/heredoc/v2"
 	"github.com/spf13/cobra"
 	"github.com/tronprotocol/tron-docker/utils"
 )
@@ -14,6 +15,13 @@ var buildCmd = &cobra.Command{
 	Short: "Build java-tron docker image.",
 	Long: `Build java-tron docker image locally.
 The master branch of java-tron repository will be built by default, using jdk1.8.0_202.`,
+	Example: heredoc.Doc(`
+			# Build java-tron docker image, defualt: tronprotocol/java-tron:latest
+			$ ./trond docker build
+
+			# Build java-tron docker image with specified org, artifact and version
+			$ ./trond docker build -o tronprotocol -a java-tron -v latest
+		`),
 	Run: func(cmd *cobra.Command, args []string) {
 
 		if yes, err := utils.IsJDK1_8(); err != nil || !yes {

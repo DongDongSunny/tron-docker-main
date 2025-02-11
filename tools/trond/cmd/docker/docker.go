@@ -1,6 +1,7 @@
 package docker
 
 import (
+	"github.com/MakeNowJust/heredoc/v2"
 	"github.com/spf13/cobra"
 )
 
@@ -15,6 +16,22 @@ var DockerCmd = &cobra.Command{
   3. pull the latest image from officical docker hub
 
 Please refer to the available commands below.`,
+	Example: heredoc.Doc(`
+			# Help information for docker command
+			$ ./trond docker
+
+			# Build java-tron docker image, defualt: tronprotocol/java-tron:latest
+			$ ./trond docker build
+
+			# Build java-tron docker image with specified org, artifact and version
+			$ ./trond docker build -o tronprotocol -a java-tron -v latest
+
+			# Test java-tron docker image, defualt: tronprotocol/java-tron:latest
+			$ ./trond docker test
+
+			# Test java-tron docker image with specified org, artifact and version
+			$ ./trond docker test -o tronprotocol -a java-tron -v latest
+		`),
 }
 
 func init() {
