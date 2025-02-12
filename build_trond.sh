@@ -147,7 +147,7 @@ cd ./tools/trond || exit
 
 # Build the Go program
 echo "Building main.go..."
-"$GO_BIN/go" build -o trond main.go
+"$GO_BIN/go" build -ldflags="-s -w" -o trond main.go
 
 # Check if the build was successful
 if [[ -f "./trond" ]]; then
