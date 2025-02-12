@@ -9,7 +9,6 @@ import (
 	"github.com/tronprotocol/tron-docker/utils"
 )
 
-// runSingleCmd represents the dataSource command
 var runSingleCmd = &cobra.Command{
 	Use:   "run-single",
 	Short: "Run single java-tron node for different networks.",
@@ -40,11 +39,6 @@ var runSingleCmd = &cobra.Command{
 			$ ./trond node run-single -t witness-private
 		`),
 	Run: func(cmd *cobra.Command, args []string) {
-		service, _ := cmd.Flags().GetString("service")
-		if len(service) == 0 {
-			service = "tron-node"
-		}
-
 		nType, _ := cmd.Flags().GetString("type")
 
 		dockerComposeFile := ""
@@ -61,7 +55,7 @@ var runSingleCmd = &cobra.Command{
 		if yes, isDir := utils.PathExists(dockerComposeFile); !yes || isDir {
 			fmt.Println("Error: file not exists or not a file:", dockerComposeFile)
 		}
-		if err := utils.RunComposeServiceOnce(dockerComposeFile, service); err != nil {
+		if err := utils.RunComposeServiceOnce(dockerComposeFile); err != nil {
 			fmt.Println("Error: ", err)
 			return
 		}
@@ -71,16 +65,64 @@ var runSingleCmd = &cobra.Command{
 	},
 }
 
+var runSingleStopCmd = &cobra.Command{
+	Use:   "stop",
+	Short: "Stop single java-tron node for different networks.",
+	Long: heredoc.Doc(`
+			The following configuration files are required:
+
+				- Configuration file(by default, these exist in the current repository directory)
+					main network: ./conf/main_net_config.conf
+					nile network: ./conf/nile_net_config.conf
+					private network: ./conf/private_net_config_*.conf
+				- Docker compose file(by default, these exist in the current repository directory)
+					main network: ./single_node/docker-compose.fullnode.main.yml
+					nile network: ./single_node/docker-compose.fullnode.nile.yml
+					private network: ./single_node/docker-compose.witness.private.yml
+		`),
+	Example: heredoc.Doc(`
+			# Run single java-tron fullnode for main network
+			$ ./trond node run-single stop -t full-main
+
+			# Run single java-tron fullnode for nile network
+			$ ./trond node run-single stop -t full-nile
+
+			# Run single java-tron witness node for private network
+			$ ./trond node run-single stop -t witness-private
+		`),
+	Run: func(cmd *cobra.Command, args []string) {
+		nType, _ := cmd.Flags().GetString("type")
+
+		dockerComposeFile := ""
+		switch nType {
+		case "full-main":
+			dockerComposeFile = "./single_node/docker-compose.fullnode.main.yml"
+		case "full-nil":
+			dockerComposeFile = "./single_node/docker-compose.fullnode.nile.yml"
+		case "witness-private":
+			dockerComposeFile = "./single_node/docker-compose.witness.private.yml"
+		default:
+			fmt.Println("Error: type not supported", nType)
+		}
+		if yes, isDir := utils.PathExists(dockerComposeFile); !yes || isDir {
+			fmt.Println("Error: file not exists or not a file:", dockerComposeFile)
+		}
+		if msg, err := utils.StopDockerCompose(dockerComposeFile); err != nil {
+			fmt.Println("Error: ", err)
+			return
+		} else {
+			fmt.Println("Stop done: ", msg)
+		}
+	},
+}
+
 func init() {
+	runSingleCmd.AddCommand(runSingleStopCmd)
 	NodeCmd.AddCommand(runSingleCmd)
 
 	runSingleCmd.Flags().StringP(
 		"type", "t", "",
 		"Node type you want to deploy (required, available: full-main, full-nile, witness-private)")
-
-	runSingleCmd.Flags().StringP(
-		"service", "s", "",
-		"Service name you want to start in docker-compose.*.yml (optional, default: tron-node)")
 
 	if err := runSingleCmd.MarkFlagRequired("type"); err != nil {
 		log.Fatalf("Error marking type flag as required: %v", err)

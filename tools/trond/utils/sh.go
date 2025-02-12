@@ -174,16 +174,7 @@ func IsComposeRunning(composePath string, serviceNames ...string) (bool, error) 
 	return len(strings.TrimSpace(string(output))) > 0, nil
 }
 
-func RunComposeServiceOnce(composePath, service string) error {
-	running, err := IsComposeRunning(composePath, service)
-	if err != nil {
-		return err
-	}
-
-	if running {
-		return fmt.Errorf("service %s is already running", service)
-	}
-
+func RunComposeServiceOnce(composePath string) error {
 	cmd := exec.CommandContext(
 		context.Background(),
 		"docker-compose",
