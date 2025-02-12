@@ -38,8 +38,8 @@ var envCmd = &cobra.Command{
 			$ ./trond node env
 		`),
 	Run: func(cmd *cobra.Command, args []string) {
-		if yes, err := utils.PwdEndsWith("tron-docker/tools/trond"); err != nil || !yes {
-			fmt.Println("Error: current directory is wrong, should be tron-docker/tools/trond")
+		if yes, err := utils.PwdEndsWith("tron-docker"); err != nil || !yes {
+			fmt.Println("Error: current directory is wrong, should be tron-docker")
 			return
 		}
 
