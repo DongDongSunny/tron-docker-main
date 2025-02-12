@@ -23,7 +23,7 @@ var envCmd = &cobra.Command{
 				- Configuration file(by default, these exist in the current repository directory)
 					main network: ./conf/main_net_config.conf
 					nile network: ./conf/nile_net_config.conf
-					private network: ./conf/private_net_config_*.conf
+					private network: ./conf/private_net_config.conf
 				- Docker compose file(by default, these exist in the current repository directory)
 					single node
 						main network: ./single_node/docker-compose.fullnode.main.yml
@@ -53,6 +53,7 @@ var envCmd = &cobra.Command{
 		checkFile := []string{
 			"./conf/main_net_config.conf",
 			"./conf/nile_net_config.conf",
+			"./conf/private_net_config.conf",
 			"./conf/private_net_config_witness1.conf",
 			"./conf/private_net_config_witness2.conf",
 			"./conf/private_net_config_others.conf",
