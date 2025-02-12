@@ -1,13 +1,11 @@
 ---
-layout: manual
-permalink: /:path/:basename
+title: docs/trond_node_run-single.md
 ---
+## trond node run-single
 
-{% raw %}## trond node run-single
+Run single java-tron node for different networks.
 
-```
-trond node run-single [flags]
-```
+### Synopsis
 
 You need to make sure the local environment is ready before running the node.
 Use this command "./trond node env" to check the environment before starting the node.
@@ -25,24 +23,13 @@ The following files are required:
 	- Log directory: ./logs
 
 
-### Options
+```
+trond node run-single [flags]
+```
 
-
-<dl class="flags">
-	<dt><code>-s</code>, 
-		<code>--service &lt;string&gt;</code></dt>
-	<dd>Service name you want to start in docker-compose.*.yaml (optional, default: tron-node)</dd>
-
-	<dt><code>-t</code>, 
-		<code>--type &lt;string&gt;</code></dt>
-	<dd>Node type you want to deploy (required, available: full-main, full-nile, witness-private)</dd>
-</dl>
-
-
-{% endraw %}
 ### Examples
 
-{% highlight bash %}{% raw %}
+```
 # Run single java-tron fullnode for main network
 $ ./trond node run-single -t full-main
 
@@ -51,8 +38,18 @@ $ ./trond node run-single -t full-nile
 
 # Run single java-tron witness node for private network
 $ ./trond node run-single -t witness-private
-{% endraw %}{% endhighlight %}
 
-### See also
+```
 
-* [trond node](./trond_node)
+### Options
+
+```
+  -h, --help             help for run-single
+  -s, --service string   Service name you want to start in docker-compose.*.yaml (optional, default: tron-node)
+  -t, --type string      Node type you want to deploy (required, available: full-main, full-nile, witness-private)
+```
+
+### SEE ALSO
+
+* [trond node](trond_node.md)	 - Commands for operating java-tron docker node.
+

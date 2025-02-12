@@ -1,27 +1,36 @@
 ---
-layout: manual
-permalink: /:path/:basename
+title: docs/trond_snapshot_source.md
 ---
+## trond snapshot source
 
-{% raw %}## trond snapshot source
+Show available snapshot source.
 
-```
-trond snapshot source
-```
+### Synopsis
 
 Available snapshot sources will be shown.
 Support different types of snapshot (Fullnode, Lite Fullnode), in different regions (Singapore, America).
 You can choose the one you need.
 
 
-{% endraw %}
+```
+trond snapshot source [flags]
+```
+
 ### Examples
 
-{% highlight bash %}{% raw %}
+```
 # Show available snapshot source
 $ ./trond snapshot source
-{% endraw %}{% endhighlight %}
 
-### See also
+```
 
-* [trond snapshot](./trond_snapshot)
+### Options
+
+```
+  -h, --help   help for source
+```
+
+### SEE ALSO
+
+* [trond snapshot](trond_snapshot.md)	 - Commands for getting java-tron node snapshots.
+

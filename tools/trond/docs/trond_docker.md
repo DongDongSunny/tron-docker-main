@@ -1,9 +1,11 @@
 ---
-layout: manual
-permalink: /:path/:basename
+title: docs/trond_docker.md
 ---
+## trond docker
 
-{% raw %}## trond docker
+Commands for operating java-tron docker image.
+
+### Synopsis
 
 Commands used for operating docker image, such as:
 
@@ -14,16 +16,9 @@ Commands used for operating docker image, such as:
 Please refer to the available commands below.
 
 
-### Available commands
-
-* [trond docker build](./trond_docker_build)
-* [trond docker test](./trond_docker_test)
-
-
-{% endraw %}
 ### Examples
 
-{% highlight bash %}{% raw %}
+```
 # Help information for docker command
 $ ./trond docker
 
@@ -38,8 +33,18 @@ $ ./trond docker test
 
 # Test java-tron docker image with specified org, artifact and version
 $ ./trond docker test -o tronprotocol -a java-tron -v latest
-{% endraw %}{% endhighlight %}
 
-### See also
+```
 
-* [trond](./trond)
+### Options
+
+```
+  -h, --help   help for docker
+```
+
+### SEE ALSO
+
+* [trond](trond.md)	 - Docker automation for TRON nodes
+* [trond docker build](trond_docker_build.md)	 - Build java-tron docker image.
+* [trond docker test](trond_docker_test.md)	 - Test java-tron docker image.
+

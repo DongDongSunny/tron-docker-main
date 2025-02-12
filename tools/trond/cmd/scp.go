@@ -45,7 +45,7 @@ var scpCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.AddCommand(scpCmd)
+	// rootCmd.AddCommand(scpCmd)
 
 	// Define flags for source file, destination, and SSH key path
 	scpCmd.Flags().StringVarP(&sourceFile, "source", "s", "", "Path to the source file")

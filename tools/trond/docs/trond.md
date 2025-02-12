@@ -1,24 +1,18 @@
 ---
-layout: manual
-permalink: /:path/:basename
+title: docs/trond.md
 ---
+## trond
 
-{% raw %}## trond
+Docker automation for TRON nodes
+
+### Synopsis
 
 This tool bundles multiple commands into one, enabling the community to quickly get started with TRON network interaction and development.
 
 
-### Available commands
-
-* [trond docker](./trond_docker)
-* [trond node](./trond_node)
-* [trond snapshot](./trond_snapshot)
-
-
-{% endraw %}
 ### Examples
 
-{% highlight bash %}{% raw %}
+```
 # Help information for docker command
 $ ./trond docker
 
@@ -27,5 +21,20 @@ $ ./trond snapshot
 
 # Help information for node command
 $ ./trond node
-{% endraw %}{% endhighlight %}
+
+```
+
+### Options
+
+```
+  -h, --help   help for trond
+```
+
+### SEE ALSO
+
+* [trond completion](trond_completion.md)	 - Generate the autocompletion script for the specified shell
+* [trond docker](trond_docker.md)	 - Commands for operating java-tron docker image.
+* [trond gen-docs](trond_gen-docs.md)	 - Generate markdown documentation for the CLI
+* [trond node](trond_node.md)	 - Commands for operating java-tron docker node.
+* [trond snapshot](trond_snapshot.md)	 - Commands for getting java-tron node snapshots.
 

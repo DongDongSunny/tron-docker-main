@@ -1,13 +1,11 @@
 ---
-layout: manual
-permalink: /:path/:basename
+title: docs/trond_node_env.md
 ---
+## trond node env
 
-{% raw %}## trond node env
+Check and configure node local environment
 
-```
-trond node env
-```
+### Synopsis
 
 Default environment configuration for node operation:
 
@@ -29,14 +27,25 @@ The following files are required:
 	- Log directory: ./logs (if not exists, will create it)
 
 
-{% endraw %}
+```
+trond node env [flags]
+```
+
 ### Examples
 
-{% highlight bash %}{% raw %}
+```
 # Check and configure node local environment
 $ ./trond node env
-{% endraw %}{% endhighlight %}
 
-### See also
+```
 
-* [trond node](./trond_node)
+### Options
+
+```
+  -h, --help   help for env
+```
+
+### SEE ALSO
+
+* [trond node](trond_node.md)	 - Commands for operating java-tron docker node.
+

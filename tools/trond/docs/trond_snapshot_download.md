@@ -1,13 +1,11 @@
 ---
-layout: manual
-permalink: /:path/:basename
+title: docs/trond_snapshot_download.md
 ---
+## trond snapshot download
 
-{% raw %}## trond snapshot download
+Download target backup snapshot to current directory
 
-```
-trond snapshot download [flags]
-```
+### Synopsis
 
 Refer to the snapshot source domain and backup name you input, the available backup snapshot will be downloaded to the local directory.
 
@@ -16,40 +14,32 @@ Note:
 - the snapshot is large, it may need a long time to finish the download, depends on your network performance.
 
 
-### Available commands
+```
+trond snapshot download [flags]
+```
 
-* [trond snapshot download default-main](./trond_snapshot_download_default-main)
-* [trond snapshot download default-nile](./trond_snapshot_download_default-nile)
+### Examples
 
+```
+# Download target backup snapshot (backup20250205 in 34.143.247.77) to current directory
+$ ./trond snapshot download -d 34.143.247.77 -b backup20250205 -t lite
+
+```
 
 ### Options
 
+```
+  -b, --backup string   Backup name(required).
+                        Please run command "./trond snapshot list" to get the available backup name under target source domains.
+  -d, --domain string   Domain for target snapshot source(required).
+                        Please run command "./trond snapshot source" to get the available snapshot source domains.
+  -h, --help            help for download
+  -t, --type string     Node type of the snapshot(required, available: full, lite).
+```
 
-<dl class="flags">
-	<dt><code>-b</code>, 
-		<code>--backup &lt;string&gt;</code></dt>
-	<dd>Backup name(required).
-Please run command &#34;./trond snapshot list&#34; to get the available backup name under target source domains.</dd>
+### SEE ALSO
 
-	<dt><code>-d</code>, 
-		<code>--domain &lt;string&gt;</code></dt>
-	<dd>Domain for target snapshot source(required).
-Please run command &#34;./trond snapshot source&#34; to get the available snapshot source domains.</dd>
+* [trond snapshot](trond_snapshot.md)	 - Commands for getting java-tron node snapshots.
+* [trond snapshot download default-main](trond_snapshot_download_default-main.md)	 - Download latest mainnet lite fullnode snapshot from default source to current directory
+* [trond snapshot download default-nile](trond_snapshot_download_default-nile.md)	 - Download latest nile testnet lite fullnode snapshot from default source to local current directory
 
-	<dt><code>-t</code>, 
-		<code>--type &lt;string&gt;</code></dt>
-	<dd>Node type of the snapshot(required, available: full, lite).</dd>
-</dl>
-
-
-{% endraw %}
-### Examples
-
-{% highlight bash %}{% raw %}
-# Download target backup snapshot (backup20250205 in 34.143.247.77) to current directory
-$ ./trond snapshot download -d 34.143.247.77 -b backup20250205 -t lite
-{% endraw %}{% endhighlight %}
-
-### See also
-
-* [trond snapshot](./trond_snapshot)

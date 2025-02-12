@@ -1,9 +1,11 @@
 ---
-layout: manual
-permalink: /:path/:basename
+title: docs/trond_snapshot.md
 ---
+## trond snapshot
 
-{% raw %}## trond snapshot
+Commands for getting java-tron node snapshots.
+
+### Synopsis
 
 Commands used for downloading node's snapshot, such as:
 	1. show available snapshot source
@@ -11,17 +13,9 @@ Commands used for downloading node's snapshot, such as:
 	3. download target snapshot
 
 
-### Available commands
-
-* [trond snapshot download](./trond_snapshot_download)
-* [trond snapshot list](./trond_snapshot_list)
-* [trond snapshot source](./trond_snapshot_source)
-
-
-{% endraw %}
 ### Examples
 
-{% highlight bash %}{% raw %}
+```
 # Help information for snapshot command
 $ ./trond snapshot
 
@@ -39,8 +33,19 @@ $ ./trond snapshot download default-main
 
 # Download latest nile testnet lite fullnode snapshot from default source(database.nileex.io) to current directory
 $ ./trond snapshot download default-nile
-{% endraw %}{% endhighlight %}
 
-### See also
+```
 
-* [trond](./trond)
+### Options
+
+```
+  -h, --help   help for snapshot
+```
+
+### SEE ALSO
+
+* [trond](trond.md)	 - Docker automation for TRON nodes
+* [trond snapshot download](trond_snapshot_download.md)	 - Download target backup snapshot to current directory
+* [trond snapshot list](trond_snapshot_list.md)	 - List available snapshots of target source.
+* [trond snapshot source](trond_snapshot_source.md)	 - Show available snapshot source.
+

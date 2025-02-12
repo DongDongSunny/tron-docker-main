@@ -1,9 +1,11 @@
 ---
-layout: manual
-permalink: /:path/:basename
+title: docs/trond_node.md
 ---
+## trond node
 
-{% raw %}## trond node
+Commands for operating java-tron docker node.
+
+### Synopsis
 
 Commands used for operating node, such as:
 
@@ -20,16 +22,9 @@ Commands used for operating node, such as:
 Please refer to the available commands below.
 
 
-### Available commands
-
-* [trond node env](./trond_node_env)
-* [trond node run-single](./trond_node_run-single)
-
-
-{% endraw %}
 ### Examples
 
-{% highlight bash %}{% raw %}
+```
 # Help information for node command
 $ ./trond node
 
@@ -44,8 +39,18 @@ $ ./trond node run-single -t full-nile
 
 # Run single java-tron witness node for private network
 $ ./trond node run-single -t witness-private
-{% endraw %}{% endhighlight %}
 
-### See also
+```
 
-* [trond](./trond)
+### Options
+
+```
+  -h, --help   help for node
+```
+
+### SEE ALSO
+
+* [trond](trond.md)	 - Docker automation for TRON nodes
+* [trond node env](trond_node_env.md)	 - Check and configure node local environment
+* [trond node run-single](trond_node_run-single.md)	 - Run single java-tron node for different networks.
+

@@ -2,18 +2,15 @@ package cmd
 
 import (
 	"fmt"
-	"log"
 	"os"
-	"strings"
 
 	"github.com/MakeNowJust/heredoc/v2"
 	"github.com/spf13/cobra"
+	"github.com/spf13/cobra/doc"
 
-	// "github.com/spf13/cobra/doc"
 	"github.com/tronprotocol/tron-docker/cmd/docker"
 	"github.com/tronprotocol/tron-docker/cmd/node"
 	"github.com/tronprotocol/tron-docker/cmd/snapshot"
-	"github.com/tronprotocol/tron-docker/utils/docs"
 )
 
 // rootCmd represents the base command when called without any subcommands
@@ -47,31 +44,53 @@ func Execute() {
 	}
 }
 
-func filePrepender(filename string) string {
-	return `---
-layout: manual
-permalink: /:path/:basename
----
-
-`
+// Custom front matter function (now accepts a string)
+func frontMatter(filename string) string {
+	return fmt.Sprintf("---\ntitle: %s\n---\n", filename)
 }
-func linkHandler(name string) string {
-	return fmt.Sprintf("./%s", strings.TrimSuffix(name, ".md"))
+
+// Custom footer linkHandler (now accepts a string)
+func linkHandler(filename string) string {
+	return filename
+}
+
+// genDocsCmd represents the command to generate markdown documentation
+var genDocsCmd = &cobra.Command{
+	Use:   "gen-docs",
+	Short: "Generate markdown documentation for the CLI",
+	Run: func(cmd *cobra.Command, args []string) {
+		docsDir := "./docs"
+
+		// Create docs directory if it doesn't exist
+		if _, err := os.Stat(docsDir); os.IsNotExist(err) {
+			err := os.Mkdir(docsDir, os.ModePerm)
+			if err != nil {
+				fmt.Println("Error creating docs directory:", err)
+				os.Exit(1)
+			}
+		}
+
+		rootCmd.DisableAutoGenTag = true
+		// Generate Markdown docs
+		err := doc.GenMarkdownTreeCustom(rootCmd, docsDir, frontMatter, linkHandler)
+		if err != nil {
+			fmt.Println("Error generating docs:", err)
+			os.Exit(1)
+		}
+
+		fmt.Println("Documentation successfully generated in", docsDir)
+	},
 }
 
 func init() {
 	rootCmd.AddCommand(snapshot.SnapshotCmd)
 	rootCmd.AddCommand(node.NodeCmd)
 	rootCmd.AddCommand(docker.DockerCmd)
+	rootCmd.AddCommand(genDocsCmd)
 
-	// err := doc.GenMarkdownTree(rootCmd, "./docs")
-	// if err != nil {
+	// if err := docs.GenMarkdownTreeCustom(rootCmd, "./docs", filePrepender, linkHandler); err != nil {
 	// 	log.Fatal(err)
 	// }
-
-	if err := docs.GenMarkdownTreeCustom(rootCmd, "./docs", filePrepender, linkHandler); err != nil {
-		log.Fatal(err)
-	}
 
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
