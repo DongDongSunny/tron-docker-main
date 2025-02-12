@@ -45,12 +45,13 @@ var runSingleCmd = &cobra.Command{
 		switch nType {
 		case "full-main":
 			dockerComposeFile = "./single_node/docker-compose.fullnode.main.yml"
-		case "full-nil":
+		case "full-nile":
 			dockerComposeFile = "./single_node/docker-compose.fullnode.nile.yml"
 		case "witness-private":
 			dockerComposeFile = "./single_node/docker-compose.witness.private.yml"
 		default:
 			fmt.Println("Error: type not supported", nType)
+			return
 		}
 		if yes, isDir := utils.PathExists(dockerComposeFile); !yes || isDir {
 			fmt.Println("Error: file not exists or not a file:", dockerComposeFile)
@@ -97,12 +98,13 @@ var runSingleStopCmd = &cobra.Command{
 		switch nType {
 		case "full-main":
 			dockerComposeFile = "./single_node/docker-compose.fullnode.main.yml"
-		case "full-nil":
+		case "full-nile":
 			dockerComposeFile = "./single_node/docker-compose.fullnode.nile.yml"
 		case "witness-private":
 			dockerComposeFile = "./single_node/docker-compose.witness.private.yml"
 		default:
 			fmt.Println("Error: type not supported", nType)
+			return
 		}
 		if yes, isDir := utils.PathExists(dockerComposeFile); !yes || isDir {
 			fmt.Println("Error: file not exists or not a file:", dockerComposeFile)
