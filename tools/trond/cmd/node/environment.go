@@ -26,11 +26,11 @@ var envCmd = &cobra.Command{
 					private network: ./conf/private_net_config_*.conf
 				- Docker compose file(by default, these exist in the current repository directory)
 					single node
-						main network: ./single_node/docker-compose.fullnode.main.yaml
-						nile network: ./single_node/docker-compose.fullnode.nile.yaml
-						private network: ./single_node/docker-compose.witness.private.yaml
+						main network: ./single_node/docker-compose.fullnode.main.yml
+						nile network: ./single_node/docker-compose.fullnode.nile.yml
+						private network: ./single_node/docker-compose.witness.private.yml
 					multiple nodes
-						private network: ./private_net/docker-compose.private.yaml
+						private network: ./private_net/docker-compose.private.yml
 				- Log directory: ./logs (if not exists, will create it)
 		`),
 	Example: heredoc.Doc(`
@@ -56,9 +56,9 @@ var envCmd = &cobra.Command{
 			"./conf/private_net_config_witness1.conf",
 			"./conf/private_net_config_witness2.conf",
 			"./conf/private_net_config_others.conf",
-			"./single_node/docker-compose.fullnode.main.yaml",
-			"./single_node/docker-compose.fullnode.nile.yaml",
-			"./single_node/docker-compose.witness.private.yaml",
+			"./single_node/docker-compose.fullnode.main.yml",
+			"./single_node/docker-compose.fullnode.nile.yml",
+			"./single_node/docker-compose.witness.private.yml",
 			"./private_net/docker-compose.yml",
 		}
 		for k, v := range checkDirectory {

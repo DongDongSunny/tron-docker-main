@@ -24,9 +24,9 @@ var runSingleCmd = &cobra.Command{
 					nile network: ./conf/nile_net_config.conf
 					private network: ./conf/private_net_config_*.conf
 				- Docker compose file(by default, these exist in the current repository directory)
-					main network: ./single_node/docker-compose.fullnode.main.yaml
-					nile network: ./single_node/docker-compose.fullnode.nile.yaml
-					private network: ./single_node/docker-compose.witness.private.yaml
+					main network: ./single_node/docker-compose.fullnode.main.yml
+					nile network: ./single_node/docker-compose.fullnode.nile.yml
+					private network: ./single_node/docker-compose.witness.private.yml
 				- Log directory: ./logs
 		`),
 	Example: heredoc.Doc(`
@@ -50,11 +50,11 @@ var runSingleCmd = &cobra.Command{
 		dockerComposeFile := ""
 		switch nType {
 		case "full-main":
-			dockerComposeFile = "./single_node/docker-compose.fullnode.main.yaml"
+			dockerComposeFile = "./single_node/docker-compose.fullnode.main.yml"
 		case "full-nil":
-			dockerComposeFile = "./single_node/docker-compose.fullnode.nile.yaml"
+			dockerComposeFile = "./single_node/docker-compose.fullnode.nile.yml"
 		case "witness-private":
-			dockerComposeFile = "./single_node/docker-compose.witness.private.yaml"
+			dockerComposeFile = "./single_node/docker-compose.witness.private.yml"
 		default:
 			fmt.Println("Error: type not supported", nType)
 		}
@@ -76,7 +76,7 @@ func init() {
 
 	runSingleCmd.Flags().StringP(
 		"service", "s", "",
-		"Service name you want to start in docker-compose.*.yaml (optional, default: tron-node)")
+		"Service name you want to start in docker-compose.*.yml (optional, default: tron-node)")
 
 	if err := runSingleCmd.MarkFlagRequired("type"); err != nil {
 		log.Fatalf("Error marking type flag as required: %v", err)
