@@ -15,3 +15,5 @@ private_net/datadir
 tron-docker.iml
 bin/
 /single_node/output-directory/
+/metric_monitor/logs/
+/private_net/logs/
