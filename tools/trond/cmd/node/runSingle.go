@@ -63,7 +63,11 @@ var runSingleCmd = &cobra.Command{
 		}
 		if err := utils.RunComposeServiceOnce(dockerComposeFile, service); err != nil {
 			fmt.Println("Error: ", err)
+			return
 		}
+		fmt.Println("Node started successfully.")
+		fmt.Println("You can check the log file in ./logs directory. For example, run 'tail -f ./logs/tron-node.log' to check the log.")
+		fmt.Println("You can also check the log in the docker container by running 'docker logs -f tron-node'.")
 	},
 }
 
