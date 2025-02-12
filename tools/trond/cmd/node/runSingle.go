@@ -56,12 +56,15 @@ var runSingleCmd = &cobra.Command{
 		if yes, isDir := utils.PathExists(dockerComposeFile); !yes || isDir {
 			fmt.Println("Error: file not exists or not a file:", dockerComposeFile)
 		}
+
+		fmt.Println("Starting node...")
+		fmt.Println("Using docker compose file: ", dockerComposeFile)
 		if err := utils.RunComposeServiceOnce(dockerComposeFile); err != nil {
 			fmt.Println("Error: ", err)
 			return
 		}
 		fmt.Println("Node started successfully.")
-		fmt.Println("You can check the log file in ./logs directory. For example, run 'tail -f ./logs/tron.log' to check the log.")
+		fmt.Println("You can check the log file in ./logs directory. Run 'tail -f ./logs/tron.log' to check the log.")
 		fmt.Println("You can also check the docker container's status by running 'docker ps'.")
 	},
 }
@@ -109,6 +112,9 @@ var runSingleStopCmd = &cobra.Command{
 		if yes, isDir := utils.PathExists(dockerComposeFile); !yes || isDir {
 			fmt.Println("Error: file not exists or not a file:", dockerComposeFile)
 		}
+
+		fmt.Println("Starting node...")
+		fmt.Println("Using docker compose file: ", dockerComposeFile)
 		if msg, err := utils.StopDockerCompose(dockerComposeFile); err != nil {
 			fmt.Println("Error: ", err)
 			return
