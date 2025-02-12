@@ -1,6 +1,8 @@
 package utils
 
 import (
+	"archive/tar"
+	"compress/gzip"
 	"crypto/md5"
 	"encoding/hex"
 	"fmt"
@@ -9,6 +11,7 @@ import (
 	"net/url"
 	"os"
 	"path"
+	"path/filepath"
 	"sort"
 	"strings"
 	"time"
@@ -398,4 +401,96 @@ func GenerateSnapshotMD5DownloadURL(domain, backup, nType string) string {
 		return "http://" + domain + "/" + backup + "/LiteFullNode_output-directory.tgz.md5sum"
 	}
 	return ""
+}
+
+func GetDownloadedSnapshotName(domain, backup, nType string) string {
+	if nType == "full" {
+		return "FullNode_output-directory.tgz"
+	} else if nType == "lite" {
+		return "LiteFullNode_output-directory.tgz"
+	}
+	return ""
+}
+
+// ExtractTgzWithProgress extracts a `.tgz` file into a directory with progress tracking
+func ExtractTgzWithProgress(tgzFile, destDir string) error {
+	// Open `.tgz` file
+	file, err := os.Open(tgzFile)
+	if err != nil {
+		return fmt.Errorf("failed to open file: %v", err)
+	}
+	defer file.Close()
+
+	// Get file size
+	fileInfo, err := file.Stat()
+	if err != nil {
+		return fmt.Errorf("failed to get file info: %v", err)
+	}
+	totalSize := fileInfo.Size()
+
+	// Create Gzip reader
+	gzReader, err := gzip.NewReader(file)
+	if err != nil {
+		return fmt.Errorf("failed to create gzip reader: %v", err)
+	}
+	defer gzReader.Close()
+
+	fmt.Println("Extracting file:", tgzFile)
+
+	// Define the custom progress bar
+	bar := progressbar.NewOptions64(
+		totalSize,
+		progressbar.OptionSetDescription(fmt.Sprintf("Extracting... (Total: %s)", formatSize(totalSize))),
+		progressbar.OptionSetWidth(50),
+		progressbar.OptionShowBytes(true),
+		progressbar.OptionSetPredictTime(true),
+		progressbar.OptionThrottle(10*time.Millisecond),
+		progressbar.OptionClearOnFinish(),
+		progressbar.OptionSpinnerType(14),
+		progressbar.OptionSetElapsedTime(true),
+		progressbar.OptionSetRenderBlankState(true),
+		progressbar.OptionShowIts(),
+		progressbar.OptionOnCompletion(func() {
+			fmt.Println("Extraction complete:", tgzFile, "->", destDir)
+		}),
+	)
+
+	// Create a Tar reader with progress tracking
+	tr := tar.NewReader(io.TeeReader(gzReader, bar))
+
+	// Extract files
+	for {
+		header, err := tr.Next()
+		if err == io.EOF {
+			break // Done
+		}
+		if err != nil {
+			return fmt.Errorf("error reading tar: %v", err)
+		}
+
+		// Target file path
+		target := filepath.Join(destDir, header.Name)
+
+		switch header.Typeflag {
+		case tar.TypeDir:
+			// Create directory
+			if err := os.MkdirAll(target, os.FileMode(header.Mode)); err != nil {
+				return fmt.Errorf("failed to create directory: %v", err)
+			}
+		case tar.TypeReg:
+			// Create file
+			outFile, err := os.Create(target)
+			if err != nil {
+				return fmt.Errorf("failed to create file: %v", err)
+			}
+			defer outFile.Close()
+
+			// Copy file content and update progress
+			if _, err := io.Copy(outFile, tr); err != nil {
+				return fmt.Errorf("failed to write file: %v", err)
+			}
+		}
+	}
+
+	return nil
 }
