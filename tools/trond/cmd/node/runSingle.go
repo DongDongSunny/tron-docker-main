@@ -81,13 +81,13 @@ var runSingleStopCmd = &cobra.Command{
 					private network: ./single_node/docker-compose.witness.private.yml
 		`),
 	Example: heredoc.Doc(`
-			# Run single java-tron fullnode for main network
+			# Stop single java-tron fullnode for main network
 			$ ./trond node run-single stop -t full-main
 
-			# Run single java-tron fullnode for nile network
+			# Stop single java-tron fullnode for nile network
 			$ ./trond node run-single stop -t full-nile
 
-			# Run single java-tron witness node for private network
+			# Stop single java-tron witness node for private network
 			$ ./trond node run-single stop -t witness-private
 		`),
 	Run: func(cmd *cobra.Command, args []string) {

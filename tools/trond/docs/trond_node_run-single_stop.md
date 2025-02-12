@@ -23,13 +23,13 @@ trond node run-single stop [flags]
 ### Examples
 
 ```
-# Run single java-tron fullnode for main network
+# Stop single java-tron fullnode for main network
 $ ./trond node run-single stop -t full-main
 
-# Run single java-tron fullnode for nile network
+# Stop single java-tron fullnode for nile network
 $ ./trond node run-single stop -t full-nile
 
-# Run single java-tron witness node for private network
+# Stop single java-tron witness node for private network
 $ ./trond node run-single stop -t witness-private
 
 ```
@@ -44,4 +44,3 @@ $ ./trond node run-single stop -t witness-private
 ### SEE ALSO
 
 * [trond node run-single](trond_node_run-single.md)	 - Run single java-tron node for different networks.
-
