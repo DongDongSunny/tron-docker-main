@@ -10,9 +10,9 @@ services:
       - "18888:18888/udp"
       - "50051:50051"
     volumes:
-      - ./conf:/java-tron/conf
-      - ./logs:/java-tron/logs
-      - ./output-directory:/java-tron/output-directory
+      - ../conf:/java-tron/conf
+      - ../logs:/java-tron/logs
+      - ../output-directory:/java-tron/output-directory
     command:
       - -jvm
       - "{-Xmx4g -Xms2g -XX:+UseConcMarkSweepGC}"  # Using environment variable for JVM arguments
