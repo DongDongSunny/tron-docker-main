@@ -127,4 +127,12 @@ func init() {
 	if err := runSingleCmd.MarkFlagRequired("type"); err != nil {
 		log.Fatalf("Error marking type flag as required: %v", err)
 	}
+
+	runSingleStopCmd.Flags().StringP(
+		"type", "t", "",
+		"Node type you want to deploy (required, available: full-main, full-nile, witness-private)")
+
+	if err := runSingleStopCmd.MarkFlagRequired("type"); err != nil {
+		log.Fatalf("Error marking type flag as required: %v", err)
+	}
 }
