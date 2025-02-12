@@ -1,5 +1,5 @@
 services:
-  tron:
+  tron-node:
     container_name: tron-witness1
     image: tronprotocol/java-tron:latest  # Add specific tag if needed
     mem_limit: 6g
