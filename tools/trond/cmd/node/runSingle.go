@@ -13,20 +13,22 @@ import (
 var runSingleCmd = &cobra.Command{
 	Use:   "run-single",
 	Short: "Run single java-tron node for different networks.",
-	Long: `You need to make sure the local environment is ready before running the node.
-Use this command "./trond node env" to check the environment before starting the node.
+	Long: heredoc.Doc(`
+			You need to make sure the local environment is ready before running the node.
+			Use this command "./trond node env" to check the environment before starting the node.
 
-The following files are required:
-  - Database directory: ./output-directory
-  - Configuration file(by default, these exist in the current repository directory)
-      main network: ../../conf/main_net_config.conf
-      nile network: ../../conf/nile_net_config.conf
-      private network: ../../conf/private_net_config_*.conf
-  - Docker compose file(by default, these exist in the current repository directory)
-        main network: ../../single_node/docker-compose.fullnode.main.yaml
-        nile network: ../../single_node/docker-compose.fullnode.nile.yaml
-        private network: ../../single_node/docker-compose.witness.private.yaml
-  - Log directory: ./logs`,
+			The following files are required:
+				- Database directory: ./output-directory
+				- Configuration file(by default, these exist in the current repository directory)
+					main network: ../../conf/main_net_config.conf
+					nile network: ../../conf/nile_net_config.conf
+					private network: ../../conf/private_net_config_*.conf
+				- Docker compose file(by default, these exist in the current repository directory)
+					main network: ../../single_node/docker-compose.fullnode.main.yaml
+					nile network: ../../single_node/docker-compose.fullnode.nile.yaml
+					private network: ../../single_node/docker-compose.witness.private.yaml
+				- Log directory: ./logs
+		`),
 	Example: heredoc.Doc(`
 			# Run single java-tron fullnode for main network
 			$ ./trond node run-single -t full-main

@@ -10,9 +10,11 @@ import (
 var sourceCmd = &cobra.Command{
 	Use:   "source",
 	Short: "Show available snapshot source.",
-	Long: `Available snapshot sources will be shown.
-Support different types of snapshot (Fullnode, Lite Fullnode), in different regions (Singapore, America).
-You can choose the one you need.`,
+	Long: heredoc.Doc(`
+			Available snapshot sources will be shown.
+			Support different types of snapshot (Fullnode, Lite Fullnode), in different regions (Singapore, America).
+			You can choose the one you need.
+		`),
 	Example: heredoc.Doc(`
 			# Show available snapshot source
 			$ ./trond snapshot source

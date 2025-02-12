@@ -16,7 +16,9 @@ import (
 var rootCmd = &cobra.Command{
 	Use:   "trond",
 	Short: "Docker automation for TRON nodes",
-	Long:  `This tool bundles multiple commands into one, enabling the community to quickly get started with TRON network interaction and development.`,
+	Long: heredoc.Doc(`
+			This tool bundles multiple commands into one, enabling the community to quickly get started with TRON network interaction and development.
+		`),
 	Example: heredoc.Doc(`
 			# Help information for docker command
 			$ ./trond docker
