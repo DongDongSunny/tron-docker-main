@@ -20,13 +20,13 @@ var runSingleCmd = &cobra.Command{
 
 				- Database directory: ./output-directory
 				- Configuration file(by default, these exist in the current repository directory)
-					main network: ../../conf/main_net_config.conf
-					nile network: ../../conf/nile_net_config.conf
-					private network: ../../conf/private_net_config_*.conf
+					main network: ./conf/main_net_config.conf
+					nile network: ./conf/nile_net_config.conf
+					private network: ./conf/private_net_config_*.conf
 				- Docker compose file(by default, these exist in the current repository directory)
-					main network: ../../single_node/docker-compose.fullnode.main.yaml
-					nile network: ../../single_node/docker-compose.fullnode.nile.yaml
-					private network: ../../single_node/docker-compose.witness.private.yaml
+					main network: ./single_node/docker-compose.fullnode.main.yaml
+					nile network: ./single_node/docker-compose.fullnode.nile.yaml
+					private network: ./single_node/docker-compose.witness.private.yaml
 				- Log directory: ./logs
 		`),
 	Example: heredoc.Doc(`
@@ -50,11 +50,11 @@ var runSingleCmd = &cobra.Command{
 		dockerComposeFile := ""
 		switch nType {
 		case "full-main":
-			dockerComposeFile = "../../single_node/docker-compose.fullnode.main.yaml"
+			dockerComposeFile = "./single_node/docker-compose.fullnode.main.yaml"
 		case "full-nil":
-			dockerComposeFile = "../../single_node/docker-compose.fullnode.nile.yaml"
+			dockerComposeFile = "./single_node/docker-compose.fullnode.nile.yaml"
 		case "witness-private":
-			dockerComposeFile = "../../single_node/docker-compose.witness.private.yaml"
+			dockerComposeFile = "./single_node/docker-compose.witness.private.yaml"
 		default:
 			fmt.Println("Error: type not supported", nType)
 		}

@@ -21,16 +21,16 @@ var envCmd = &cobra.Command{
 
 				- Database directory: ./output-directory (if not exists, will create it)
 				- Configuration file(by default, these exist in the current repository directory)
-					main network: ../../conf/main_net_config.conf
-					nile network: ../../conf/nile_net_config.conf
-					private network: ../../conf/private_net_config_*.conf
+					main network: ./conf/main_net_config.conf
+					nile network: ./conf/nile_net_config.conf
+					private network: ./conf/private_net_config_*.conf
 				- Docker compose file(by default, these exist in the current repository directory)
 					single node
-						main network: ../../single_node/docker-compose.fullnode.main.yaml
-						nile network: ../../single_node/docker-compose.fullnode.nile.yaml
-						private network: ../../single_node/docker-compose.witness.private.yaml
+						main network: ./single_node/docker-compose.fullnode.main.yaml
+						nile network: ./single_node/docker-compose.fullnode.nile.yaml
+						private network: ./single_node/docker-compose.witness.private.yaml
 					multiple nodes
-						private network: ../../private_net/docker-compose.private.yaml
+						private network: ./private_net/docker-compose.private.yaml
 				- Log directory: ./logs (if not exists, will create it)
 		`),
 	Example: heredoc.Doc(`
@@ -44,22 +44,22 @@ var envCmd = &cobra.Command{
 		}
 
 		checkDirectory := map[string]bool{
-			"../../conf":         false,
+			"./conf":             false,
 			"./output-directory": true,
 			"./logs":             true,
-			"../../single_node":  false,
-			"../../private_net":  false,
+			"./single_node":      false,
+			"./private_net":      false,
 		}
 		checkFile := []string{
-			"../../conf/main_net_config.conf",
-			"../../conf/nile_net_config.conf",
-			"../../conf/private_net_config_witness1.conf",
-			"../../conf/private_net_config_witness2.conf",
-			"../../conf/private_net_config_others.conf",
-			"../../single_node/docker-compose.fullnode.main.yaml",
-			"../../single_node/docker-compose.fullnode.nile.yaml",
-			"../../single_node/docker-compose.witness.private.yaml",
-			"../../private_net/docker-compose.private.yaml",
+			"./conf/main_net_config.conf",
+			"./conf/nile_net_config.conf",
+			"./conf/private_net_config_witness1.conf",
+			"./conf/private_net_config_witness2.conf",
+			"./conf/private_net_config_others.conf",
+			"./single_node/docker-compose.fullnode.main.yaml",
+			"./single_node/docker-compose.fullnode.nile.yaml",
+			"./single_node/docker-compose.witness.private.yaml",
+			"./private_net/docker-compose.private.yaml",
 		}
 		for k, v := range checkDirectory {
 			if yes, isDir := utils.PathExists(k); !yes {
