@@ -4,8 +4,7 @@ Run single java-tron node for different networks.
 
 ### Synopsis
 
-You need to make sure the local environment is ready before running the node.<br>
-Use this command "./trond node env" to check the environment before starting the node.<br>
+You need to make sure the local environment is ready before running the node. Run "./trond node env" to check the environment before starting the node.
 
 The following files are required:
 

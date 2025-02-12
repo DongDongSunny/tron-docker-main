@@ -4,9 +4,7 @@ Show available snapshot source.
 
 ### Synopsis
 
-Available snapshot sources will be shown.<br>
-Support different types of snapshot (Fullnode, Lite Fullnode), in different regions (Singapore, America).<br>
-You can choose the one you need.
+Support different types of snapshot (Fullnode, Lite Fullnode), in different regions (Singapore, America).
 
 
 ```

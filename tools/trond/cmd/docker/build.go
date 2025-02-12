@@ -14,8 +14,7 @@ var buildCmd = &cobra.Command{
 	Use:   "build",
 	Short: "Build java-tron docker image.",
 	Long: heredoc.Doc(`
-			Build java-tron docker image locally.<br>
-			The master branch of java-tron repository will be built by default, using jdk1.8.0_202.
+			Build java-tron docker image locally. The master branch of java-tron repository will be built by default, using jdk1.8.0_202.
 		`),
 	Example: heredoc.Doc(`
 			# Build java-tron docker image, defualt: tronprotocol/java-tron:latest
