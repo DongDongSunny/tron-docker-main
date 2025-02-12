@@ -1,7 +1,10 @@
 package cmd
 
 import (
+	"fmt"
+	"log"
 	"os"
+	"strings"
 
 	"github.com/MakeNowJust/heredoc/v2"
 	"github.com/spf13/cobra"
@@ -10,6 +13,7 @@ import (
 	"github.com/tronprotocol/tron-docker/cmd/docker"
 	"github.com/tronprotocol/tron-docker/cmd/node"
 	"github.com/tronprotocol/tron-docker/cmd/snapshot"
+	"github.com/tronprotocol/tron-docker/utils/docs"
 )
 
 // rootCmd represents the base command when called without any subcommands
@@ -43,6 +47,18 @@ func Execute() {
 	}
 }
 
+func filePrepender(filename string) string {
+	return `---
+layout: manual
+permalink: /:path/:basename
+---
+
+`
+}
+func linkHandler(name string) string {
+	return fmt.Sprintf("./%s", strings.TrimSuffix(name, ".md"))
+}
+
 func init() {
 	rootCmd.AddCommand(snapshot.SnapshotCmd)
 	rootCmd.AddCommand(node.NodeCmd)
@@ -52,6 +68,11 @@ func init() {
 	// if err != nil {
 	// 	log.Fatal(err)
 	// }
+
+	if err := docs.GenMarkdownTreeCustom(rootCmd, "./docs", filePrepender, linkHandler); err != nil {
+		log.Fatal(err)
+	}
+
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
