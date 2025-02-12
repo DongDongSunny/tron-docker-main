@@ -11,8 +11,8 @@ var sourceCmd = &cobra.Command{
 	Use:   "source",
 	Short: "Show available snapshot source.",
 	Long: heredoc.Doc(`
-			Available snapshot sources will be shown.
-			Support different types of snapshot (Fullnode, Lite Fullnode), in different regions (Singapore, America).
+			Available snapshot sources will be shown.<br>
+			Support different types of snapshot (Fullnode, Lite Fullnode), in different regions (Singapore, America).<br>
 			You can choose the one you need.
 		`),
 	Example: heredoc.Doc(`
