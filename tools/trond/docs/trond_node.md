@@ -50,4 +50,3 @@ $ ./trond node run-single -t witness-private
 * [trond](trond.md)	 - Docker automation for TRON nodes
 * [trond node env](trond_node_env.md)	 - Check and configure node local environment
 * [trond node run-single](trond_node_run-single.md)	 - Run single java-tron node for different networks.
-

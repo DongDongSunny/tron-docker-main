@@ -50,4 +50,3 @@ $ ./trond node run-single -t witness-private
 ### SEE ALSO
 
 * [trond node](trond_node.md)	 - Commands for operating java-tron docker node.
-

@@ -30,4 +30,3 @@ $ ./trond snapshot source
 ### SEE ALSO
 
 * [trond snapshot](trond_snapshot.md)	 - Commands for getting java-tron node snapshots.
-
