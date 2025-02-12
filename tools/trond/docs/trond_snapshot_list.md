@@ -4,7 +4,7 @@ List available snapshots of target source.
 
 ### Synopsis
 
-Refer to the snapshot source domain you input, the available backup snapshots will be showen below.
+Refer to the snapshot source domain you input, the available backup snapshots will be showen below.  
 Note: different domain may have different snapshots that can be downloaded.
 
 

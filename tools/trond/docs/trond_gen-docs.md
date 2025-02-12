@@ -2,6 +2,13 @@
 
 Generate markdown documentation for the CLI.
 
+### Synopsis
+
+This command generates markdown documentation for the CLI commands and subcommands.  
+The documentation is saved in the 'docs' directory.  
+If the 'docs' directory does not exist, it will be created.
+
+
 ```
 trond gen-docs [flags]
 ```

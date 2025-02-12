@@ -18,6 +18,7 @@ var envCmd = &cobra.Command{
 			Current directory: tron-docker/tools/trond
 
 			The following files are required:
+
 				- Database directory: ./output-directory (if not exists, will create it)
 				- Configuration file(by default, these exist in the current repository directory)
 					main network: ../../conf/main_net_config.conf

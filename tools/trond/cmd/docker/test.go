@@ -14,10 +14,10 @@ var testCmd = &cobra.Command{
 	Use:   "test",
 	Short: "Test java-tron docker image.",
 	Long: heredoc.Doc(`
-			Test java-tron docker image locally.
-			Default, will test the "tronprotocol/java-tron:latest" image. You can specify the flags to test the image you want.
-			The test includes the following tasks:
-				1. Perform port checks
+			Test java-tron docker image locally.  
+			Default, will test the "tronprotocol/java-tron:latest" image. You can specify the flags to test the image you want.  
+			The test includes the following tasks:  
+				1. Perform port checks  
 				2. Verify whether block synchronization is functioning normally
 		`),
 	Example: heredoc.Doc(`

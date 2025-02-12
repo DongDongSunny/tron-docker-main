@@ -6,9 +6,9 @@ Download target backup snapshot to current directory
 
 Refer to the snapshot source domain and backup name you input, the available backup snapshot will be downloaded to the local directory.
 
-Note:
-- because some snapshot sources have multiple snapshot types, you need to specify the type(full, lite) of snapshot you want to download.
-- the snapshot is large, it may need a long time to finish the download, depends on your network performance.
+Note:  
+- because some snapshot sources have multiple snapshot types, you need to specify the type(full, lite) of snapshot you want to download.  
+- the snapshot is large, it may need a long time to finish the download, depends on your network performance.  
 
 
 ```

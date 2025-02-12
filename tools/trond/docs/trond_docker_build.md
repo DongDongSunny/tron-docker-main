@@ -4,7 +4,7 @@ Build java-tron docker image.
 
 ### Synopsis
 
-Build java-tron docker image locally.
+Build java-tron docker image locally.  
 The master branch of java-tron repository will be built by default, using jdk1.8.0_202.
 
 
