@@ -59,7 +59,7 @@ var envCmd = &cobra.Command{
 			"./single_node/docker-compose.fullnode.main.yaml",
 			"./single_node/docker-compose.fullnode.nile.yaml",
 			"./single_node/docker-compose.witness.private.yaml",
-			"./private_net/docker-compose.yaml",
+			"./private_net/docker-compose.yml",
 		}
 		for k, v := range checkDirectory {
 			if yes, isDir := utils.PathExists(k); !yes {
