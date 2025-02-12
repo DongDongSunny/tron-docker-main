@@ -10,10 +10,10 @@ var DockerCmd = &cobra.Command{
 	Use:   "docker",
 	Short: "Commands for operating java-tron docker image.",
 	Long: heredoc.Doc(`
-			Commands used for operating docker image, such as:  
-				1. build java-tron docker image locally  
-				2. test the built image  
-				3. pull the latest image from officical docker hub  
+			Commands used for operating docker image, such as:<br>
+				1. build java-tron docker image locally<br>
+				2. test the built image<br>
+				3. pull the latest image from officical docker hub<br>
 			Please refer to the available commands below.
 		`),
 	Example: heredoc.Doc(`

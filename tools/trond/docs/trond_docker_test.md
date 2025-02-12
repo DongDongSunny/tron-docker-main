@@ -4,10 +4,10 @@ Test java-tron docker image.
 
 ### Synopsis
 
-Test java-tron docker image locally.  
-Default, will test the "tronprotocol/java-tron:latest" image. You can specify the flags to test the image you want.  
-The test includes the following tasks:  
-	1. Perform port checks  
+Test java-tron docker image locally.<br>
+Default, will test the "tronprotocol/java-tron:latest" image. You can specify the flags to test the image you want.<br>
+The test includes the following tasks:<br>
+	1. Perform port checks<br>
 	2. Verify whether block synchronization is functioning normally
 
 

@@ -14,7 +14,7 @@ var listCmd = &cobra.Command{
 	Use:   "list",
 	Short: "List available snapshots of target source.",
 	Long: heredoc.Doc(`
-			Refer to the snapshot source domain you input, the available backup snapshots will be showen below.  
+			Refer to the snapshot source domain you input, the available backup snapshots will be showen below.<br>
 			Note: different domain may have different snapshots that can be downloaded.
 	`),
 	Example: heredoc.Doc(`
