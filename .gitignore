@@ -15,9 +15,13 @@ logs/
 output-directory/
 tron-docker.iml
 bin/
+
 trond
 .DS_Store
-
 go
 go1.*
 *FullNode_output-directory*
+
+/single_node/output-directory/
+/metric_monitor/logs/
+/private_net/logs/
