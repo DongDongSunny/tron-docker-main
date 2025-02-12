@@ -1,6 +1,3 @@
----
-title: docs/trond_docker_test.md
----
 ## trond docker test
 
 Test java-tron docker image.

@@ -1,6 +1,3 @@
----
-title: docs/trond.md
----
 ## trond
 
 Docker automation for TRON nodes
@@ -32,9 +29,8 @@ $ ./trond node
 
 ### SEE ALSO
 
-* [trond completion](trond_completion.md)	 - Generate the autocompletion script for the specified shell
 * [trond docker](trond_docker.md)	 - Commands for operating java-tron docker image.
-* [trond gen-docs](trond_gen-docs.md)	 - Generate markdown documentation for the CLI
+* [trond gen-docs](trond_gen-docs.md)	 - Generate markdown documentation for the CLI.
 * [trond node](trond_node.md)	 - Commands for operating java-tron docker node.
 * [trond snapshot](trond_snapshot.md)	 - Commands for getting java-tron node snapshots.
 

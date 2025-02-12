@@ -1,6 +1,3 @@
----
-title: docs/trond_snapshot_download.md
----
 ## trond snapshot download
 
 Download target backup snapshot to current directory

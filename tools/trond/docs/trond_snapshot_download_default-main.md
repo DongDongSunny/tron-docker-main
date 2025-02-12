@@ -1,6 +1,3 @@
----
-title: docs/trond_snapshot_download_default-main.md
----
 ## trond snapshot download default-main
 
 Download latest mainnet lite fullnode snapshot from default source to current directory

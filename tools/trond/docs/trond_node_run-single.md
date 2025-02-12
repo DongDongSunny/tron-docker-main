@@ -1,6 +1,3 @@
----
-title: docs/trond_node_run-single.md
----
 ## trond node run-single
 
 Run single java-tron node for different networks.

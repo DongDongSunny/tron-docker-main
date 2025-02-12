@@ -1,6 +1,3 @@
----
-title: docs/trond_snapshot_source.md
----
 ## trond snapshot source
 
 Show available snapshot source.

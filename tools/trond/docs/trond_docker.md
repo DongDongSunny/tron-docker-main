@@ -1,6 +1,3 @@
----
-title: docs/trond_docker.md
----
 ## trond docker
 
 Commands for operating java-tron docker image.

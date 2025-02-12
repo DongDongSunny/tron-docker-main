@@ -1,6 +1,3 @@
----
-title: docs/trond_snapshot_list.md
----
 ## trond snapshot list
 
 List available snapshots of target source.

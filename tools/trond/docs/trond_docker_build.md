@@ -1,6 +1,3 @@
----
-title: docs/trond_docker_build.md
----
 ## trond docker build
 
 Build java-tron docker image.

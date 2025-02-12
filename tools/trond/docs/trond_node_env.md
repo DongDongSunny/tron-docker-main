@@ -1,6 +1,3 @@
----
-title: docs/trond_node_env.md
----
 ## trond node env
 
 Check and configure node local environment

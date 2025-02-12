@@ -1,6 +1,3 @@
----
-title: docs/trond_snapshot.md
----
 ## trond snapshot
 
 Commands for getting java-tron node snapshots.

@@ -1,6 +1,3 @@
----
-title: docs/trond_snapshot_download_default-nile.md
----
 ## trond snapshot download default-nile
 
 Download latest nile testnet lite fullnode snapshot from default source to local current directory

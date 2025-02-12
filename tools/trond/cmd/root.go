@@ -38,6 +38,7 @@ var rootCmd = &cobra.Command{
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
+	rootCmd.CompletionOptions.DisableDefaultCmd = true
 	err := rootCmd.Execute()
 	if err != nil {
 		os.Exit(1)
@@ -46,7 +47,8 @@ func Execute() {
 
 // Custom front matter function (now accepts a string)
 func frontMatter(filename string) string {
-	return fmt.Sprintf("---\ntitle: %s\n---\n", filename)
+	// return fmt.Sprintf("---\ntitle: %s\n---\n", filename)
+	return ""
 }
 
 // Custom footer linkHandler (now accepts a string)
@@ -57,7 +59,16 @@ func linkHandler(filename string) string {
 // genDocsCmd represents the command to generate markdown documentation
 var genDocsCmd = &cobra.Command{
 	Use:   "gen-docs",
-	Short: "Generate markdown documentation for the CLI",
+	Short: "Generate markdown documentation for the CLI.",
+	Long: heredoc.Doc(`
+			This command generates markdown documentation for the CLI commands and subcommands.
+			The documentation is saved in the 'docs' directory.
+			If the 'docs' directory does not exist, it will be created.
+		`),
+	Example: heredoc.Doc(`
+			# Generate markdown documentation for the CLI
+			$ ./trond gen-docs
+		`),
 	Run: func(cmd *cobra.Command, args []string) {
 		docsDir := "./docs"
 
@@ -87,10 +98,6 @@ func init() {
 	rootCmd.AddCommand(node.NodeCmd)
 	rootCmd.AddCommand(docker.DockerCmd)
 	rootCmd.AddCommand(genDocsCmd)
-
-	// if err := docs.GenMarkdownTreeCustom(rootCmd, "./docs", filePrepender, linkHandler); err != nil {
-	// 	log.Fatal(err)
-	// }
 
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,

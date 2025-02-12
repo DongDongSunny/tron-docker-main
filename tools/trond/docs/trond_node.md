@@ -1,6 +1,3 @@
----
-title: docs/trond_node.md
----
 ## trond node
 
 Commands for operating java-tron docker node.
