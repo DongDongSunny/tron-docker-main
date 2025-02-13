@@ -105,29 +105,26 @@ var downloadDefaultNileCmd = &cobra.Command{
 }
 
 func download(domain string, backup string, nType string) {
-	// downloadURLMD5 := utils.GenerateSnapshotMD5DownloadURL(domain, backup, nType)
-	// if downloadURLMD5 == "" {
-	// 	fmt.Println("Error: --type value not supported, available: full, lite")
-	// 	return
-	// }
-	// downloadMD5File, err := utils.DownloadFileWithProgress(downloadURLMD5, "")
-	// if err != nil {
-	// 	fmt.Println("Error:", err)
-	// }
-	// downloadURL := utils.GenerateSnapshotDownloadURL(domain, backup, nType)
-	// if downloadURL == "" {
-	// 	fmt.Println("Error: --type value not supported, available: full, lite")
-	// 	return
-	// }
-	// if downloadSnapshot, err := utils.DownloadFileWithProgress(downloadURL, downloadMD5File); err != nil {
-	// 	fmt.Println("Error:", err)
-	// } else {
-	// 	if err := utils.ExtractTgzWithProgress(downloadSnapshot, "./"); err != nil {
-	// 		fmt.Println("Error:", err)
-	// 	}
-	// }
-	if err := utils.ExtractTgzWithProgress("LiteFullNode_output-directory.tgz", "./"); err != nil {
+	downloadURLMD5 := utils.GenerateSnapshotMD5DownloadURL(domain, backup, nType)
+	if downloadURLMD5 == "" {
+		fmt.Println("Error: --type value not supported, available: full, lite")
+		return
+	}
+	downloadMD5File, err := utils.DownloadFileWithProgress(downloadURLMD5, "")
+	if err != nil {
 		fmt.Println("Error:", err)
+	}
+	downloadURL := utils.GenerateSnapshotDownloadURL(domain, backup, nType)
+	if downloadURL == "" {
+		fmt.Println("Error: --type value not supported, available: full, lite")
+		return
+	}
+	if downloadSnapshot, err := utils.DownloadFileWithProgress(downloadURL, downloadMD5File); err != nil {
+		fmt.Println("Error:", err)
+	} else {
+		if err := utils.ExtractTgzWithProgress(downloadSnapshot, "./"); err != nil {
+			fmt.Println("Error:", err)
+		}
 	}
 }
 
