@@ -38,59 +38,70 @@ var envCmd = &cobra.Command{
 			$ ./trond node env
 		`),
 	Run: func(cmd *cobra.Command, args []string) {
-		if yes, err := utils.PwdEndsWith("tron-docker"); err != nil || !yes {
-			fmt.Println("Error: current directory is wrong, should be tron-docker")
-			return
-		}
-
-		checkDirectory := map[string]bool{
-			"./conf":             false,
-			"./output-directory": true,
-			"./logs":             true,
-			"./single_node":      false,
-			"./private_net":      false,
-		}
-		checkFile := []string{
-			"./conf/main_net_config.conf",
-			"./conf/nile_net_config.conf",
-			"./conf/private_net_config.conf",
-			"./conf/private_net_config_witness1.conf",
-			"./conf/private_net_config_witness2.conf",
-			"./conf/private_net_config_others.conf",
-			"./single_node/docker-compose.fullnode.main.yml",
-			"./single_node/docker-compose.fullnode.nile.yml",
-			"./single_node/docker-compose.witness.private.yml",
-			"./private_net/docker-compose.yml",
-		}
-		for k, v := range checkDirectory {
-			if yes, isDir := utils.PathExists(k); !yes {
-				if v {
-					fmt.Println("Warning: directory not exists:", k)
-					fmt.Println(" - Creating it")
-					if err := utils.CreateDir(k, true); err != nil {
-						fmt.Println(" - Error creating directory:", err)
-					} else {
-						fmt.Println(" - Directory created successfully:", k)
-
-						if k == "./output-directory" {
-							fmt.Println(" - Note: no history database, the node will start from 0 block")
-						}
-					}
-				} else {
-					fmt.Println("Error: directory not exists:", k)
-				}
-			} else if !isDir {
-				fmt.Println("Error: target is not a directory:", k)
-			} else {
-				fmt.Println("Directory exists:", k)
-			}
-		}
-		for _, v := range checkFile {
-			if yes, isDir := utils.PathExists(v); !yes || isDir {
-				fmt.Println("Error: file not exists or not a file:", v)
-			}
-		}
+		checkEnv()
 	},
+}
+
+func checkEnv() bool {
+	checkFalse := false
+
+	if yes, err := utils.PwdEndsWith("tron-docker"); err != nil || !yes {
+		fmt.Println("Error: current directory is wrong, should be tron-docker")
+		return true
+	}
+
+	checkDirectory := map[string]bool{
+		"./conf":             false,
+		"./output-directory": true,
+		"./logs":             true,
+		"./single_node":      false,
+		"./private_net":      false,
+	}
+
+	checkFile := []string{
+		"./conf/main_net_config.conf",
+		"./conf/nile_net_config.conf",
+		"./conf/private_net_config.conf",
+		"./conf/private_net_config_witness1.conf",
+		"./conf/private_net_config_witness2.conf",
+		"./conf/private_net_config_others.conf",
+		"./single_node/docker-compose.fullnode.main.yml",
+		"./single_node/docker-compose.fullnode.nile.yml",
+		"./single_node/docker-compose.witness.private.yml",
+		"./private_net/docker-compose.yml",
+	}
+
+	for k, v := range checkDirectory {
+		if yes, isDir := utils.PathExists(k); !yes {
+			if v {
+				fmt.Println("Warning: directory not exists:", k)
+				fmt.Println(" - Creating it")
+				if err := utils.CreateDir(k, true); err != nil {
+					fmt.Println(" - Error creating directory:", err)
+				} else {
+					fmt.Println(" - Directory created successfully:", k)
+
+					if k == "./output-directory" {
+						fmt.Println(" - Note: no history database, the node will start from 0 block")
+					}
+				}
+			} else {
+				fmt.Println("Error: directory not exists:", k)
+			}
+		} else if !isDir {
+			fmt.Println("Error: target is not a directory:", k)
+		} else {
+			fmt.Println("Directory exists:", k)
+		}
+	}
+	for _, v := range checkFile {
+		if yes, isDir := utils.PathExists(v); !yes || isDir {
+			fmt.Println("Error: file not exists or not a file:", v)
+			checkFalse = true
+		}
+	}
+
+	return checkFalse
 }
 
 func init() {

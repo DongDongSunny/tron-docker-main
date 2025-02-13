@@ -39,6 +39,11 @@ var runSingleCmd = &cobra.Command{
 			$ ./trond node run-single -t witness-private
 		`),
 	Run: func(cmd *cobra.Command, args []string) {
+		if !checkEnv() {
+			fmt.Println("Error: local environment check failed, please redownload this repository and try")
+			return
+		}
+
 		nType, _ := cmd.Flags().GetString("type")
 
 		dockerComposeFile := ""
