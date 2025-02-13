@@ -17,4 +17,5 @@ services:
       - -jvm
       - "{-Xmx4g -Xms2g -XX:+UseConcMarkSweepGC}"  # Using environment variable for JVM arguments
       - -c
-      - /java-tron/conf/private_net_config.conf
+      - /java-tron/conf/private_net_config_witness1.conf
+      - -w
