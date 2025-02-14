@@ -1,4 +1,4 @@
-# TROND
+# trond
 
 This document provides guidance on using the `trond` command-line tool, tested on Linux and macOS.
 
