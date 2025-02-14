@@ -18,12 +18,13 @@ This document provides guidance on using the `trond` command-line tool, tested o
 2. Build the `trond` binary:
 
     ```sh
+    # this will generate trond in current directory
     ./build_trond.sh
     ```
 
 ## Usage
 
-The [trond](tools/trond/docs/trond.md) command-line tool offers various commands for managing TRON nodes and snapshots.
+The [trond](./docs/trond.md) command-line tool offers various commands for managing TRON nodes and snapshots.
 
 ### Examples
 
@@ -39,7 +40,7 @@ The [trond](tools/trond/docs/trond.md) command-line tool offers various commands
     ./trond node run-single -t full-main
     ```
 
-For more information, refer to the [trond documentation](tools/trond/docs/trond.md).
+For more information, refer to the [trond documentation](./docs/trond.md).
 
 ## Note
 
