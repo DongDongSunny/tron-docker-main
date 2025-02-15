@@ -122,7 +122,7 @@ func download(domain string, backup string, nType string) {
 	if downloadSnapshot, err := utils.DownloadFileWithProgress(downloadURL, downloadMD5File); err != nil {
 		fmt.Println("Error:", err)
 	} else {
-		if err := utils.ExtractTgzWithProgress(downloadSnapshot, "./"); err != nil {
+		if err := utils.ExtractTgzWithStatus(downloadSnapshot, "./"); err != nil {
 			fmt.Println("Error:", err)
 		}
 	}
