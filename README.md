@@ -34,7 +34,7 @@ Once the FullNode starts, it will begin to sync blocks with Mainnet from the gen
 
 You can use `docker exec tron-node tail -f ./logs/tron.log` to check the logs. For more details, please refer to the [single_node](single_node/README.md) section.
 
-## Start all services
+## Start all features
 First, clone the repository:
 
 ```sh
@@ -71,7 +71,7 @@ Check the output of `./trond -h`, which now supports the following features:
 - Build and test the java-tron Docker image.
 - Download database snapshots.
 
-### Start the service individually
+### Start the feature individually
 To start all available features, navigate to the appropriate directory and follow the instructions in the corresponding README to start the services:
 - **TRON network deployment related:**
    - **Single FullNode**: Use the [single_node](./single_node) folder.
