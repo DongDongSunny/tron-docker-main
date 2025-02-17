@@ -18,13 +18,25 @@ We also provide tools to facilitate the CI and testing process:
 - **Gradle Docker**: Automate the build and testing of the `java-tron` Docker image using Gradle.
 - **DBFork**: Launch a private java-tron network based on the Mainnet database state, enabling shadow fork testing.
 
-## Getting Started
+## Prerequisites
+Please download and install the latest version of Docker from the official Docker website:
+* Docker Installation for [Mac](https://docs.docker.com/docker-for-mac/install/)
+* Docker Installation for [Windows](https://docs.docker.com/docker-for-windows/install/)
+* Docker Installation for [Linux](https://docs.docker.com/desktop/setup/install/linux/)
 
-### Prerequisites
-- Docker
-- Docker Compose
 
-### Start the services
+## Quick Start
+To quickly start a fullnode that connect to the Mainnet, please download and run [docker-compose-quick-start.yml](single_node/docker-compose-quick-start.yml):
+
+```
+docker-compose -f docker-compose-quick-start.yml up
+```
+Once the fullnode starts, it will begin to sync blocks with other peers starting from genesis block.
+You could use `docker exec tron-node tail -f ./logs/tron.log` to check the logs. For more details usage please refer [single_node](single_node/README.md) part.
+
+## Start services easily through script
+
+## Start the service separately
 First clone the repository:
 
 ```sh
