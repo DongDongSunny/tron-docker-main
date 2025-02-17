@@ -10,7 +10,6 @@ Current directory: tron-docker/tools/trond
 
 The following files are required:
 
-	- Database directory: ./output-directory (if not exists, will create it)
 	- Configuration file(by default, these exist in the current repository directory)
 		main network: ./conf/main_net_config.conf
 		nile network: ./conf/nile_net_config.conf
@@ -22,7 +21,6 @@ The following files are required:
 			private network: ./single_node/docker-compose.witness.private.yml
 		multiple nodes
 			private network: ./private_net/docker-compose.private.yml
-	- Log directory: ./logs (if not exists, will create it)
 
 
 ```

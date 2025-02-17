@@ -2,7 +2,9 @@ package snapshot
 
 import (
 	"fmt"
+	"github.com/tronprotocol/tron-docker/config"
 	"log"
+	"os"
 
 	"github.com/MakeNowJust/heredoc/v2"
 	"github.com/spf13/cobra"
@@ -105,6 +107,12 @@ var downloadDefaultNileCmd = &cobra.Command{
 }
 
 func download(domain string, backup string, nType string) {
+	networkType, err := config.GetNetworkTypeFromDomain(domain)
+	if err != nil {
+		fmt.Printf("Abnormal domain: %v\n", err)
+		return
+	}
+
 	downloadURLMD5 := utils.GenerateSnapshotMD5DownloadURL(domain, backup, nType)
 	if downloadURLMD5 == "" {
 		fmt.Println("Error: --type value not supported, available: full, lite")
@@ -119,13 +127,29 @@ func download(domain string, backup string, nType string) {
 		fmt.Println("Error: --type value not supported, available: full, lite")
 		return
 	}
-	if downloadSnapshot, err := utils.DownloadFileWithProgress(downloadURL, downloadMD5File); err != nil {
+	downloadSnapshot, err := utils.DownloadFileWithProgress(downloadURL, downloadMD5File)
+	if err != nil {
 		fmt.Println("Error:", err)
-	} else {
-		if err := utils.ExtractTgzWithProgress(downloadSnapshot, "./"); err != nil {
-			fmt.Println("Error:", err)
-		}
+		return
 	}
+
+	if err := utils.ExtractTgzWithProgress(downloadSnapshot, "./"); err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+
+	/* At least according to the domain, move extracted database to the correct subtype directory.
+	The database will be used by `./trond node run-single`, check that part for details
+	*/
+	src := "./output-directory/database"
+	dst := fmt.Sprintf("./output-directory/%s/database", networkType)
+
+	err = os.Rename(src, dst)
+	if err != nil {
+		fmt.Printf("Error moving directory: %v\n", err)
+		return
+	}
+	fmt.Println("Directory moved to the corresponding network folder successfully")
 }
 
 func init() {

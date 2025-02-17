@@ -8,7 +8,6 @@ You need to make sure the local environment is ready before running the node. Ru
 
 The following files are required:
 
-	- Database directory: ./output-directory
 	- Configuration file(by default, these exist in the current repository directory)
 		main network: ./conf/main_net_config.conf
 		nile network: ./conf/nile_net_config.conf
@@ -17,7 +16,12 @@ The following files are required:
 		main network: ./single_node/docker-compose.fullnode.main.yml
 		nile network: ./single_node/docker-compose.fullnode.nile.yml
 		private network: ./single_node/docker-compose.witness.private.yml
-	- Log directory: ./logs
+
+
+The following directory will be created after you start any type of java-tron fullnode:
+
+	- Log directory: ./logs/$type
+	- Database directory: ./output-directory/$type
 
 
 ```
