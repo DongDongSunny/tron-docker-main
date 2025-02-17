@@ -133,7 +133,7 @@ func download(domain string, backup string, nType string) {
 		return
 	}
 
-	if err := utils.ExtractTgzWithProgress(downloadSnapshot, "./"); err != nil {
+	if err := utils.ExtractTgzWithStatus(downloadSnapshot, "./"); err != nil {
 		fmt.Println("Error:", err)
 		return
 	}
