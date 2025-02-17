@@ -31,13 +31,13 @@ The [trond](./docs/trond.md) command-line tool offers various commands for manag
 - Download the latest mainnet lite fullnode snapshot from the default source (`34.143.247.77`) to the current directory:
 
     ```sh
-    ./trond snapshot download default-main
+    nohup ./trond snapshot download default-main &
     ```
 
 - Run a single java-tron fullnode for the main network:
 
     ```sh
-    ./trond node run-single -t full-main
+    nohup ./trond node run-single -t full-main &
     ```
 
 For more information, refer to the [trond documentation](./docs/trond.md).

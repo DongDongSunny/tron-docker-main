@@ -25,18 +25,15 @@ Please download and install the latest version of Docker from the official Docke
 * Docker Installation for [Linux](https://docs.docker.com/desktop/setup/install/linux/)
 
 
-## Quick Start
+## Quick start
 To quickly start a fullnode that connect to the Mainnet, please download and run [docker-compose-quick-start.yml](single_node/docker-compose-quick-start.yml):
-
 ```
 docker-compose -f docker-compose-quick-start.yml up
 ```
 Once the fullnode starts, it will begin to sync blocks with other peers starting from genesis block.
-You could use `docker exec tron-node tail -f ./logs/tron.log` to check the logs. For more details usage please refer [single_node](single_node/README.md) part.
+You could use `docker exec tron-node tail -f ./logs/tron.log` to check the logs. For more details please refer [single_node](single_node/README.md) part.
 
-## Start services easily through script
-
-## Start the service separately
+## Start all services
 First clone the repository:
 
 ```sh
@@ -44,7 +41,37 @@ git clone https://github.com/tronprotocol/tron-docker.git
 cd tron-docker
 ```
 
-Then, navigate to the relevant directory and follow the instructions in the respective README to start the services：
+### Start easily by Trond script
+We provide Trond script to help developer easily start features using one command, enabling the community to quickly get started with TRON network development and interaction.
+
+```
+./trond -h
+Usage:
+  trond [command]
+
+Examples:
+# Help information for java-tron docker image build and testing command
+$ ./trond docker
+
+# Help information for database snapshot download related command
+$ ./trond snapshot
+
+# Help information for Tron single FullNode deployment command
+$ ./trond node
+
+Available Commands:
+  docker      Commands for operating java-tron docker image.
+  help        Help about any command
+  node        Commands for operating java-tron docker node.
+  snapshot    Commands for getting java-tron node snapshots.
+```
+Now it support features:
+- Deploy single FullNode for varies networks.
+- java-tron docker image build and testing.
+- Download database snapshot.
+
+### Start the service individually
+To start all available features, navigate to the appropriate directory and follow the instructions in the corresponding README to start the services:
 - **TRON network deployment related:**
    - **Single FullNode**: Use the [single_node](./single_node) folder.
    - **Private TRON network**: Use the [private_net](./private_net) folder.

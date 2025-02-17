@@ -19,13 +19,13 @@ var downloadCmd = &cobra.Command{
 	Long: heredoc.Doc(`
 			Refer to the snapshot source domain and backup name you input, the available backup snapshot will be downloaded to the local directory.<br>
 
-			Note:<br>
+			Note:
 			- because some snapshot sources have multiple snapshot types, you need to specify the type(full, lite) of snapshot you want to download.<br>
-			- the snapshot is large, it may need a long time to finish the download, depends on your network performance.
+			- the snapshot is large, it may need a long time to finish the download, depends on your network performance. You could add 'nohup' to make it continue running even after you log out of your terminal session.
 		`),
 	Example: heredoc.Doc(`
-			# Download target backup snapshot (backup20250205 in 34.143.247.77) to current directory
-			$ ./trond snapshot download -d 34.143.247.77 -b backup20250205 -t lite
+			# Download target backup snapshot (backup20250205 in 34.143.247.77) to current directory.
+			$ nohup ./trond snapshot download -d 34.143.247.77 -b backup20250205 -t lite &
 		`),
 	Run: func(cmd *cobra.Command, args []string) {
 		// Get the flag value
@@ -54,7 +54,7 @@ var downloadDefaultCmd = &cobra.Command{
  - Default source: 34.143.247.77(Singapore)`,
 	Example: heredoc.Doc(`
 			# Download latest mainnet lite fullnode snapshot from default source(34.143.247.77) to current directory
-			$ ./trond snapshot download default-main
+			$ nohup ./trond snapshot download default-main &
 		`),
 	Run: func(cmd *cobra.Command, args []string) {
 		// Get the flag value
@@ -85,7 +85,7 @@ var downloadDefaultNileCmd = &cobra.Command{
  - Default source: database.nileex.io`,
 	Example: heredoc.Doc(`
 			# Download latest nile testnet lite fullnode snapshot from default source(database.nileex.io) to current directory
-			$ ./trond snapshot download default-nile
+			$ nohup ./trond snapshot download default-nile &
 		`),
 	Run: func(cmd *cobra.Command, args []string) {
 		// Get the flag value
