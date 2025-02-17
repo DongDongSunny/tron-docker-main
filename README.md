@@ -26,11 +26,12 @@ Please download and install the latest version of Docker from the official Docke
 
 
 ## Quick start
-To quickly start a fullnode that connect to the Mainnet, please download and run [docker-compose-quick-start.yml](single_node/docker-compose-quick-start.yml):
+To quickly start a fullnode that connect to the Mainnet, simply download and run [docker-compose-quick-start.yml](single_node/docker-compose-quick-start.yml):
 ```
 docker-compose -f docker-compose-quick-start.yml up
 ```
-Once the fullnode starts, it will begin to sync blocks with other peers starting from genesis block.
+Once the fullnode starts, it will begin to sync blocks with Mainnet from genesis block.
+
 You could use `docker exec tron-node tail -f ./logs/tron.log` to check the logs. For more details please refer [single_node](single_node/README.md) part.
 
 ## Start all services
