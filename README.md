@@ -42,7 +42,7 @@ git clone https://github.com/tronprotocol/tron-docker.git
 cd tron-docker
 ```
 
-### Start easily by Trond script
+### Start feature by Trond script
 We provide a Trond script to help developers easily start features with a single command, enabling the community to quickly engage in TRON network development and interaction.
 
 ```sh
