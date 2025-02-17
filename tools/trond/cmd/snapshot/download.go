@@ -1,10 +1,12 @@
 package snapshot
 
 import (
+	"errors"
 	"fmt"
 	"github.com/tronprotocol/tron-docker/config"
 	"log"
 	"os"
+	"strings"
 
 	"github.com/MakeNowJust/heredoc/v2"
 	"github.com/spf13/cobra"
@@ -113,21 +115,21 @@ func download(domain string, backup string, nType string) {
 		return
 	}
 
-	downloadURLMD5 := utils.GenerateSnapshotMD5DownloadURL(domain, backup, nType)
-	if downloadURLMD5 == "" {
-		fmt.Println("Error: --type value not supported, available: full, lite")
+	networkDst := fmt.Sprintf("./output-directory/%s", strings.ToLower(string(networkType)))
+	databaseDst := fmt.Sprintf("./output-directory/%s/database", strings.ToLower(string(networkType)))
+
+	if folderYes, _ := utils.PathExists(networkDst); !folderYes {
+		fmt.Println("Creating directory:", networkDst)
+		if err := utils.CreateDir(networkDst, true); err != nil {
+			fmt.Println(" - Error creating directory:", err)
+			return
+		}
+	} else if databaseYes, _ := utils.PathExists(databaseDst); databaseYes {
+		fmt.Println(fmt.Sprintf("Notice: there already exist database data %s, please delete it if you want to download again.", databaseDst))
 		return
 	}
-	downloadMD5File, err := utils.DownloadFileWithProgress(downloadURLMD5, "")
-	if err != nil {
-		fmt.Println("Error:", err)
-	}
-	downloadURL := utils.GenerateSnapshotDownloadURL(domain, backup, nType)
-	if downloadURL == "" {
-		fmt.Println("Error: --type value not supported, available: full, lite")
-		return
-	}
-	downloadSnapshot, err := utils.DownloadFileWithProgress(downloadURL, downloadMD5File)
+
+	downloadSnapshot, err := downloadFileAndCheckSum(domain, backup, nType)
 	if err != nil {
 		fmt.Println("Error:", err)
 		return
@@ -141,15 +143,33 @@ func download(domain string, backup string, nType string) {
 	/* At least according to the domain, move extracted database to the correct subtype directory.
 	The database will be used by `./trond node run-single`, check that part for details
 	*/
-	src := "./output-directory/database"
-	dst := fmt.Sprintf("./output-directory/%s/database", networkType)
+	fmt.Println(fmt.Sprintf("Finally move the database to the corresponding network folder %s", databaseDst))
+	srcDatabase := "./output-directory/database"
 
-	err = os.Rename(src, dst)
+	// Check whether dst directory already exist, if yes, return warning let user
+	// if not exist, create directory
+	err = os.Rename(srcDatabase, databaseDst)
 	if err != nil {
 		fmt.Printf("Error moving directory: %v\n", err)
 		return
 	}
 	fmt.Println("Directory moved to the corresponding network folder successfully")
+}
+
+func downloadFileAndCheckSum(domain string, backup string, nType string) (string, error) {
+	downloadURLMD5 := utils.GenerateSnapshotMD5DownloadURL(domain, backup, nType)
+	if downloadURLMD5 == "" {
+		return "", errors.New("Error: --type value not supported, available: full, lite")
+	}
+	downloadMD5File, err := utils.DownloadFileWithProgress(downloadURLMD5, "")
+	if err != nil {
+		return "", err
+	}
+	downloadURL := utils.GenerateSnapshotDownloadURL(domain, backup, nType)
+	if downloadURL == "" {
+		return "", errors.New("Error: --type value not supported, available: full, lite")
+	}
+	return utils.DownloadFileWithProgress(downloadURL, downloadMD5File)
 }
 
 func init() {
