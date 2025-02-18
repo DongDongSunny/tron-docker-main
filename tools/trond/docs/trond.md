@@ -16,7 +16,7 @@ $ ./trond docker
 # Help information for database snapshot download related command
 $ ./trond snapshot
 
-# Help information for Tron single FullNode deployment command
+# Help information for TRON single node deployment command
 $ ./trond node
 
 ```
