@@ -18,11 +18,7 @@ Recommended:
 
 ### Docker
 
-Please download and install the latest version of Docker from the official Docker website:
-* Docker Installation for [Mac](https://docs.docker.com/docker-for-mac/install/)
-* Docker Installation for [Windows](https://docs.docker.com/docker-for-windows/install/)
-* Docker Installation for [Linux](https://docs.docker.com/desktop/setup/install/linux/)
-
+For Docker and Docker Compose installation refer [prerequisites](../README.md#prerequisites).
 Then check the Docker resource settings to ensure it has at least 16GB of memory per FullNode container.
 
 ## Get Docker image
